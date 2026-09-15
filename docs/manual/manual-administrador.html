@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Manual do Administrador — Site Marco Mayor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+
+<!-- ============================================================ CAPA -->
+<section class="cover">
+  <div class="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 30V10h2.4L20 22.4 28.6 10H31v20" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter"/><rect x="24.5" y="33" width="6.5" height="2.6" fill="#f3ce4b"/></svg>
+    Marco Mayor
+  </div>
+
+  <p class="kicker">Guia de uso do painel</p>
+  <h1>Manual do Administrador</h1>
+  <p class="site">Site Marco Mayor</p>
+  <p class="subtitle">Guia de gerenciamento de publicações e categorias.</p>
+
+  <dl class="meta">
+    <div><dt>Versão</dt><dd>1.0</dd></div>
+    <div><dt>Data</dt><dd>Setembro de 2026</dd></div>
+    <div><dt>Endereço do site</dt><dd>marco-mayor.vercel.app</dd></div>
+  </dl>
+</section>
+
+<!-- ============================================================ SUMÁRIO -->
+<section class="page">
+  <p class="chapter-label">Sumário</p>
+  <h2>Neste manual</h2>
+  <p class="lead">Um guia prático para manter as publicações do site sempre atualizadas, sem precisar de conhecimento técnico.</p>
+
+  <ol class="toc">
+    <li><span class="n">1</span><span>Apresentação</span></li>
+    <li><span class="n">2</span><span>Acessando o painel</span></li>
+    <li><span class="n">3</span><span>Visão geral do painel</span></li>
+    <li><span class="n">4</span><span>Publicações
+      <ul>
+        <li>4.1 Lista de publicações</li>
+        <li>4.2 Criar uma publicação</li>
+        <li>4.3 Imagem da publicação</li>
+        <li>4.4 Publicar e despublicar</li>
+        <li>4.5 Destaque</li>
+        <li>4.6 Editar uma publicação</li>
+        <li>4.7 Alterar a ordem</li>
+        <li>4.8 Excluir uma publicação</li>
+      </ul></span></li>
+    <li><span class="n">5</span><span>Categorias
+      <ul>
+        <li>5.1 Lista de categorias</li>
+        <li>5.2 Criar uma categoria</li>
+        <li>5.3 Escolher o ícone</li>
+        <li>5.4 Editar uma categoria</li>
+        <li>5.5 Reorganizar categorias</li>
+        <li>5.6 Excluir uma categoria</li>
+      </ul></span></li>
+    <li><span class="n">6</span><span>Filtros no site</span></li>
+    <li><span class="n">7</span><span>Tempo de atualização do site</span></li>
+    <li><span class="n">8</span><span>Boas práticas</span></li>
+    <li><span class="n">9</span><span>Dúvidas e problemas comuns</span></li>
+  </ol>
+
+  <div class="box" style="margin-top:9mm">
+    <span class="box-title">Como ler este manual</span>
+    <p>Os nomes de botões e campos aparecem em <span class="ui">negrito azul</span>, exatamente como estão no painel. Os círculos amarelos numerados nas imagens correspondem às legendas ao lado.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 1 APRESENTAÇÃO -->
+<section class="page">
+  <p class="chapter-label">Capítulo 1</p>
+  <h2>Apresentação</h2>
+  <p class="lead">O painel administrativo é a área restrita do site onde você gerencia os conteúdos exibidos na seção <strong>Atuação em destaque</strong> e organiza esses conteúdos por categorias.</p>
+  <p>Tudo é feito pelo navegador, com formulários simples. Não é preciso instalar programas nem pedir alterações técnicas para as tarefas do dia a dia.</p>
+
+  <h3>O que você pode fazer</h3>
+  <div class="cards">
+    <div class="card"><h4>Criar e editar publicações</h4><p>Título, resumo, link da publicação original e imagem opcional.</p></div>
+    <div class="card"><h4>Controlar o que aparece</h4><p>Publicar, voltar para rascunho, destacar e definir a ordem dos cards.</p></div>
+    <div class="card"><h4>Organizar por categorias</h4><p>Criar, renomear, ordenar e excluir categorias, com um ícone para cada uma.</p></div>
+    <div class="card"><h4>Acompanhar o conteúdo</h4><p>Ver totais, publicações por categoria e as últimas alterações.</p></div>
+  </div>
+
+  <h3>Conceitos importantes</h3>
+  <table class="fields">
+    <thead><tr><th>Termo</th><th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td>Publicação</td><td>Cada card exibido na seção Atuação em destaque do site.</td></tr>
+      <tr><td>Categoria</td><td>O assunto de uma publicação, como Saúde, Inclusão ou Bairros. As categorias também viram filtros no site.</td></tr>
+      <tr><td><span class="pill live">Publicada</span></td><td>A publicação está visível no site.</td></tr>
+      <tr><td><span class="pill draft">Rascunho</span></td><td>A publicação existe no painel, mas não aparece no site.</td></tr>
+      <tr><td><span class="pill featured">Destaque</span></td><td>A publicação aparece antes das outras, em um card azul.</td></tr>
+      <tr><td>Atualização do site</td><td>Depois que você salva, o site leva alguns instantes para mostrar a mudança (capítulo 7).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================================ 2 ACESSO -->
+<section class="page">
+  <p class="chapter-label">Capítulo 2</p>
+  <h2>Acessando o painel</h2>
+  <p class="lead">O painel fica em um endereço próprio e só pode ser acessado com usuário e senha.</p>
+
+  <ol class="steps">
+    <li>Abra o navegador e acesse <span class="url">https://marco-mayor.vercel.app/admin</span></li>
+    <li>No campo <span class="ui">Usuário</span>, informe <strong>[usuário fornecido pelo administrador]</strong>.</li>
+    <li>No campo <span class="ui">Senha</span>, informe <strong>[senha fornecida pelo administrador]</strong>.</li>
+    <li>Clique em <span class="ui">Entrar</span>. Você será levado à tela <span class="ui">Visão geral</span>.</li>
+  </ol>
+
+  <figure>
+    <div class="shot">
+      <img src="img/01-login.png" alt="Tela de login do painel administrativo">
+      <span class="pin" style="left:56%;top:49.8%">1</span>
+      <span class="pin" style="left:56%;top:59.3%">2</span>
+      <span class="pin" style="left:56%;top:66.5%">3</span>
+    </div>
+    <figcaption><b>Tela de acesso.</b> <span class="key">1</span>Usuário <span class="key">2</span>Senha <span class="key">3</span>Entrar</figcaption>
+  </figure>
+
+  <div class="row-2">
+    <div class="box">
+      <span class="box-title">Sessão</span>
+      <p>Por segurança, o acesso expira depois de algumas horas. Se isso acontecer, basta entrar novamente. Para encerrar o acesso a qualquer momento, use <span class="ui">Sair</span>, no rodapé do menu lateral.</p>
+    </div>
+    <div class="box attention">
+      <span class="box-title">Atenção</span>
+      <p>Após várias tentativas com senha incorreta, o acesso é bloqueado temporariamente e o painel informa quantos minutos aguardar. Nunca compartilhe sua senha.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 3 VISÃO GERAL -->
+<section class="page">
+  <p class="chapter-label">Capítulo 3</p>
+  <h2>Visão geral do painel</h2>
+  <p class="lead">Ao entrar, você vê um resumo do conteúdo do site. O menu lateral, à esquerda, leva a todas as áreas do painel.</p>
+
+  <figure>
+    <div class="shot">
+      <img src="img/02-visao-geral.png" alt="Tela Visão geral do painel">
+      <span class="pin" style="left:15%;top:15.8%">1</span>
+      <span class="pin" style="left:15%;top:20.7%">2</span>
+      <span class="pin" style="left:15%;top:25.6%">3</span>
+      <span class="pin" style="left:83.4%;top:15%">3</span>
+      <span class="pin" style="left:15%;top:30.5%">4</span>
+      <span class="pin" style="left:15%;top:96%">5</span>
+      <span class="pin" style="left:95.5%;top:23.4%">6</span>
+      <span class="pin" style="left:30.5%;top:38.2%">7</span>
+      <span class="pin" style="left:33.5%;top:54.9%">8</span>
+    </div>
+  </figure>
+
+  <div class="split even">
+    <ul class="legend">
+      <li><span class="key">1</span><span><b>Publicações</b>Lista com todos os cards do site.</span></li>
+      <li><span class="key">2</span><span><b>Categorias</b>Assuntos usados para organizar e filtrar as publicações.</span></li>
+      <li><span class="key">3</span><span><b>Nova publicação</b>Atalho para criar um card. Aparece no menu e no topo da tela.</span></li>
+      <li><span class="key">4</span><span><b>Ver site</b>Abre o site público em uma nova aba.</span></li>
+    </ul>
+    <ul class="legend">
+      <li><span class="key">5</span><span><b>Sair</b>Encerra o acesso ao painel.</span></li>
+      <li><span class="key">6</span><span><b>Totais</b>Quantidade de publicações, quantas estão publicadas e quantas são rascunhos.</span></li>
+      <li><span class="key">7</span><span><b>Por categoria</b>Quantidade de publicações em cada assunto. O link <span class="ui">Gerenciar</span> abre Categorias.</span></li>
+      <li><span class="key">8</span><span><b>Últimas alterações</b>As cinco publicações modificadas mais recentemente. Clique em uma para editá-la.</span></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <span class="box-title">No celular</span>
+    <p>O painel também funciona no celular. Nesse caso, o menu lateral fica recolhido: toque no botão de menu, no topo da tela, para abri-lo.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 4.1 LISTA -->
+<section class="page">
+  <p class="chapter-label">Capítulo 4</p>
+  <h2>Publicações</h2>
+  <p class="lead">Cada publicação é um card da seção Atuação em destaque. Nesta área você cria, altera, organiza e remove esses cards.</p>
+
+  <h3><span class="num">4.1</span>Lista de publicações</h3>
+  <p>Clique em <span class="ui">Publicações</span>, no menu lateral. A lista mostra os cards na mesma ordem em que aparecem no site.</p>
+
+  <figure>
+    <div class="shot"><img src="img/03-publicacoes.png" alt="Lista de publicações"></div>
+    <figcaption><b>Lista de publicações.</b> Busca e filtros no topo; cada linha tem o menu de ações (⋯) à direita.</figcaption>
+  </figure>
+
+  <table class="fields">
+    <thead><tr><th>Elemento</th><th>Para que serve</th></tr></thead>
+    <tbody>
+      <tr><td>Busca</td><td>Encontra publicações pelo título ou pelo resumo.</td></tr>
+      <tr><td>Filtros</td><td><span class="ui">Todas as categorias</span> e <span class="ui">Todos os status</span> limitam a lista a uma categoria ou a publicadas/rascunhos.</td></tr>
+      <tr><td>Colunas</td><td>Ordem, título e resumo, categoria, status (<span class="pill live">Publicada</span>, <span class="pill draft">Rascunho</span>, <span class="pill featured">Destaque</span>, Imagem) e data da última alteração.</td></tr>
+      <tr><td>Título</td><td>Clique no título para abrir a publicação e editá-la.</td></tr>
+      <tr><td>Menu de ações (⋯)</td><td>Atalhos para editar, publicar, destacar, mudar a ordem e excluir (seções 4.4 a 4.8).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================================ 4.2 CRIAR -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">4.2</span>Criar uma publicação</h3>
+  <p>Clique em <span class="ui">Nova publicação</span>, no menu lateral ou no topo da lista. Preencha os campos e acompanhe o resultado na pré-visualização, à direita.</p>
+
+  <div class="split form-shot">
+    <figure style="margin-top:1mm">
+      <div class="shot">
+        <img src="img/05-nova-publicacao.png" alt="Formulário de nova publicação">
+        <span class="pin" style="left:2.6%;top:15.5%">1</span>
+        <span class="pin" style="left:2.6%;top:22%">2</span>
+        <span class="pin" style="left:2.6%;top:30.8%">3</span>
+        <span class="pin" style="left:2.6%;top:41.2%">4</span>
+        <span class="pin" style="left:2.6%;top:58.9%">5</span>
+        <span class="pin" style="left:2.6%;top:72.7%">6</span>
+        <span class="pin" style="left:2.6%;top:80.6%">7</span>
+        <span class="pin" style="left:42.2%;top:92.1%">8</span>
+        <span class="pin" style="left:65.9%;top:4.6%">9</span>
+      </div>
+      <figcaption><b>Nova publicação</b>, preenchida com textos ilustrativos.</figcaption>
+    </figure>
+
+    <ul class="legend" style="margin-top:1mm">
+      <li><span class="key">1</span><span><b>Categoria</b>O assunto da publicação. A lista mostra as categorias cadastradas.</span></li>
+      <li><span class="key">2</span><span><b>Título</b>Obrigatório, de 3 a 120 caracteres. É o texto em destaque no card.</span></li>
+      <li><span class="key">3</span><span><b>Resumo</b>Até 280 caracteres. Descreva apenas o que a publicação original apresenta.</span></li>
+      <li><span class="key">4</span><span><b>Link da publicação</b>Opcional. Endereço completo, começando com https://. Com link, o card mostra <span class="ui">Ver publicação</span> e abre esse endereço; sem link, mostra <span class="ui">Acompanhar nas redes</span> e leva à seção de contato do site.</span></li>
+      <li><span class="key">5</span><span><b>Imagem</b>Opcional. Veja a seção 4.3.</span></li>
+      <li><span class="key">6</span><span><b>Publicada e Destaque</b>Definem se o card aparece no site e se ele fica em destaque (seções 4.4 e 4.5).</span></li>
+      <li><span class="key">7</span><span><b>Ordem</b>Números menores aparecem antes (seção 4.7). O painel já sugere o próximo número.</span></li>
+      <li><span class="key">8</span><span><b>Criar publicação</b>Salva o card.</span></li>
+      <li><span class="key">9</span><span><b>Pré-visualização</b>Mostra como o card ficará no site, enquanto você digita.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="page">
+  <h4 style="margin-top:0">Passo a passo</h4>
+  <ol class="steps">
+    <li>Clique em <span class="ui">Nova publicação</span>.</li>
+    <li>Escolha a <span class="ui">Categoria</span>.</li>
+    <li>Preencha <span class="ui">Título</span> e <span class="ui">Resumo</span>.</li>
+    <li>Se houver, cole o <span class="ui">Link da publicação</span> original.</li>
+    <li>Opcionalmente, adicione uma imagem (seção 4.3).</li>
+    <li>Ative <span class="ui">Publicada</span> para o card aparecer no site, ou deixe desativado para salvar como rascunho.</li>
+    <li>Confira a pré-visualização e clique em <span class="ui">Criar publicação</span>.</li>
+  </ol>
+  <p>Depois de salvar, o painel mostra uma confirmação e abre a tela de edição da nova publicação.</p>
+
+  <div class="box attention">
+    <span class="box-title">Atenção</span>
+    <p>Após salvar uma alteração, aguarde alguns instantes para que o site seja atualizado. A mensagem de confirmação pode dizer que o site será atualizado “após o próximo deploy”, o que significa apenas que uma nova versão do site está sendo preparada automaticamente.</p>
+  </div>
+
+  <div class="box">
+    <span class="box-title">Se algo estiver incorreto</span>
+    <p>Quando um campo não é aceito, por exemplo um título muito curto ou um link sem https://, o painel mostra <strong>Revise os campos destacados</strong> e indica o problema logo abaixo do campo. Corrija e salve novamente.</p>
+  </div>
+
+  <div class="box">
+    <span class="box-title">Alterações não salvas</span>
+    <p>Se você tentar sair da página com alterações ainda não salvas, o navegador pede confirmação. Assim você não perde o que digitou por engano.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 4.3 IMAGEM -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">4.3</span>Imagem da publicação</h3>
+  <p>A imagem é opcional. Sem imagem, o card usa a versão tipográfica com o símbolo da categoria. Com imagem, a foto aparece no topo do card.</p>
+
+  <figure>
+    <div class="shot"><img src="img/06-imagem-selecionada.png" alt="Imagem selecionada e pré-visualização com imagem"></div>
+    <figcaption><b>Imagem selecionada.</b> A pré-visualização muda para “Card com imagem”. A imagem desta captura é apenas ilustrativa.</figcaption>
+  </figure>
+
+  <div class="split even">
+    <div>
+      <h4>Adicionar uma imagem</h4>
+      <ol class="steps">
+        <li>Na área <span class="ui">Imagem</span>, clique em <span class="ui">Escolher imagem</span>.</li>
+        <li>Selecione o arquivo no computador ou no celular.</li>
+        <li>Confira a pré-visualização. Se mudar de ideia, clique em <span class="ui">Desfazer seleção</span>.</li>
+        <li>Clique em <span class="ui">Criar publicação</span> ou <span class="ui">Salvar alterações</span>. A imagem só é enviada ao salvar.</li>
+      </ol>
+    </div>
+    <div>
+      <h4>Arquivos aceitos</h4>
+      <ul class="clean">
+        <li>Formatos <strong>JPG, JPEG, PNG</strong> ou <strong>WebP</strong>.</li>
+        <li>O painel reduz e otimiza a imagem automaticamente antes de enviar.</li>
+        <li>Arquivos muito grandes podem ser recusados; nesse caso, o painel avisa e você pode escolher outra imagem.</li>
+      </ul>
+      <h4>Recomendações</h4>
+      <ul class="clean">
+        <li>Use imagens de boa qualidade e relacionadas ao conteúdo.</li>
+        <li>Evite imagens muito pequenas ou pixeladas.</li>
+        <li>Confira o enquadramento na pré-visualização antes de salvar.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <h4 style="margin-top:0">Substituir ou remover uma imagem existente</h4>
+  <p>Em uma publicação que já tem imagem, a área <span class="ui">Imagem</span> mostra a imagem atual e duas opções:</p>
+
+  <figure style="width:82%">
+    <div class="shot"><img src="img/07-imagem-existente.png" alt="Publicação com imagem atual"></div>
+    <figcaption><b>Com imagem.</b> <span class="ui">Substituir imagem</span> escolhe um novo arquivo; <span class="ui">Remover imagem</span> tira a imagem do card.</figcaption>
+  </figure>
+  <figure style="width:82%">
+    <div class="shot"><img src="img/07b-imagem-remover.png" alt="Imagem marcada para remoção"></div>
+    <figcaption><b>Remoção marcada.</b> O aviso “A imagem será removida ao salvar” aparece. <span class="ui">Manter imagem atual</span> desfaz a escolha.</figcaption>
+  </figure>
+
+  <ol class="steps">
+    <li>Abra a publicação (seção 4.6).</li>
+    <li>Clique em <span class="ui">Substituir imagem</span> e selecione o novo arquivo, ou clique em <span class="ui">Remover imagem</span>.</li>
+    <li>Confira a pré-visualização e clique em <span class="ui">Salvar alterações</span>.</li>
+  </ol>
+
+  <div class="box attention">
+    <span class="box-title">Atenção: a imagem pode demorar alguns instantes</span>
+    <p>Depois de salvar uma publicação com imagem nova, o painel é atualizado antes de o site terminar de publicar a nova versão. Por isso, a imagem pode não aparecer imediatamente, nem no site nem na pré-visualização do painel. Aguarde alguns instantes e atualize a página. Não é necessário enviar a imagem de novo.</p>
+  </div>
+
+  <div class="box">
+    <span class="box-title">Sobre o formato das imagens</span>
+    <p>Não há uma medida ou proporção obrigatória. O site ajusta a imagem ao espaço do card e, dependendo do formato da foto, pode cortar parte das bordas. Por isso, sempre confira a pré-visualização antes de salvar.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 4.4 / 4.5 -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">4.4</span>Publicar e despublicar</h3>
+  <p>Uma publicação pode estar <span class="pill live">Publicada</span>, visível no site, ou em <span class="pill draft">Rascunho</span>, guardada apenas no painel. Rascunhos são úteis para preparar um conteúdo antes de exibi-lo.</p>
+
+  <div class="split">
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/04-menu-acoes.png" alt="Menu de ações de uma publicação"></div>
+      <figcaption><b>Menu de ações (⋯)</b> de uma linha da lista de publicações.</figcaption>
+    </figure>
+    <div>
+      <h4 style="margin-top:0">Pelo formulário</h4>
+      <p>Na tela da publicação, ative ou desative <span class="ui">Publicada</span> e clique em <span class="ui">Salvar alterações</span>.</p>
+      <h4>Pela lista (atalho)</h4>
+      <p>Clique em <span class="ui">⋯</span> na linha da publicação e escolha <span class="ui">Publicar</span> ou <span class="ui">Despublicar</span>. A alteração é salva na hora.</p>
+      <p class="muted">Enquanto a publicação é um rascunho, a pré-visualização mostra: “Rascunho: este card não aparece no site até ser publicado.”</p>
+    </div>
+  </div>
+
+  <h3><span class="num">4.5</span>Destaque</h3>
+  <div class="split">
+    <div>
+      <p>Uma publicação em destaque:</p>
+      <ul class="clean">
+        <li>aparece <strong>antes das demais</strong> no carrossel do site;</li>
+        <li>é exibida em um <strong>card azul</strong>, com a etiqueta amarela <span class="pill featured">Destaque</span>.</li>
+      </ul>
+      <p>Para destacar, ative <span class="ui">Destaque</span> no formulário e salve, ou use <span class="ui">⋯</span> › <span class="ui">Marcar destaque</span> na lista. Para desfazer, desative a opção ou use <span class="ui">Remover destaque</span>.</p>
+      <div class="box">
+        <span class="box-title">Dica</span>
+        <p>Mais de uma publicação pode estar em destaque ao mesmo tempo. Entre elas, vale a ordem definida no campo <span class="ui">Ordem</span>. Use o recurso com moderação para que o destaque continue chamando atenção.</p>
+      </div>
+    </div>
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/08-destaque.png" alt="Pré-visualização de card em destaque"></div>
+      <figcaption><b>Pré-visualização</b> de uma publicação com <span class="ui">Destaque</span> ativado.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================ 4.6 / 4.7 -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">4.6</span>Editar uma publicação</h3>
+  <div class="split wide-img">
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/09-editar-publicacao.png" alt="Tela de edição de publicação"></div>
+      <figcaption><b>Editar publicação.</b> O topo informa a data da última alteração.</figcaption>
+    </figure>
+    <div>
+      <ol class="steps">
+        <li>Em <span class="ui">Publicações</span>, clique no título da publicação, ou use <span class="ui">⋯</span> › <span class="ui">Editar</span>.</li>
+        <li>Altere os campos desejados. A pré-visualização acompanha as mudanças.</li>
+        <li>Clique em <span class="ui">Salvar alterações</span>.</li>
+      </ol>
+      <p>No rodapé do formulário também ficam:</p>
+      <ul class="clean">
+        <li><span class="ui">Voltar</span>: retorna à lista sem salvar.</li>
+        <li><span class="ui">Excluir</span>: remove a publicação (seção 4.8).</li>
+      </ul>
+      <div class="box">
+        <span class="box-title">Dica</span>
+        <p>Você também chega à edição clicando em uma publicação da área <span class="ui">Últimas alterações</span>, na Visão geral.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="num">4.7</span>Alterar a ordem</h3>
+  <p>No site, as publicações em destaque aparecem primeiro. Em seguida, as demais seguem a ordem numérica: números menores aparecem antes. Há duas formas de mudar a posição:</p>
+  <div class="row-2">
+    <div class="card">
+      <h4>Mover para cima ou para baixo</h4>
+      <p>Na lista, clique em <span class="ui">⋯</span> e escolha <span class="ui">Mover para cima</span> ou <span class="ui">Mover para baixo</span>. A publicação troca de lugar com a vizinha e a numeração é reorganizada automaticamente.</p>
+    </div>
+    <div class="card">
+      <h4>Campo Ordem</h4>
+      <p>No formulário da publicação, informe um número no campo <span class="ui">Ordem</span> e salve. Útil para posicionar um card diretamente.</p>
+    </div>
+  </div>
+  <div class="box attention">
+    <span class="box-title">Atenção</span>
+    <p>As opções <span class="ui">Mover para cima</span> e <span class="ui">Mover para baixo</span> só aparecem quando a lista não está filtrada. Se houver busca ou filtro ativo, o painel avisa “Limpe os filtros para reordenar”.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 4.8 -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">4.8</span>Excluir uma publicação</h3>
+  <div class="split">
+    <div>
+      <ol class="steps">
+        <li>Na lista, clique em <span class="ui">⋯</span> › <span class="ui">Excluir</span>, ou abra a publicação e clique em <span class="ui">Excluir</span>.</li>
+        <li>Leia a confirmação.</li>
+        <li>Se a publicação tiver imagem, decida se deseja marcar <span class="ui">Remover também a imagem associada</span>.</li>
+        <li>Clique em <span class="ui">Excluir publicação</span> para confirmar, ou em <span class="ui">Cancelar</span> para desistir.</li>
+      </ol>
+      <p class="muted">Se a mesma imagem for usada por outra publicação, o painel mantém o arquivo e avisa na própria confirmação.</p>
+    </div>
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/10-excluir-publicacao.png" alt="Confirmação de exclusão de publicação"></div>
+      <figcaption><b>Confirmação de exclusão</b> de uma publicação com imagem.</figcaption>
+    </figure>
+  </div>
+
+  <div class="box danger">
+    <span class="box-title">Cuidado: a exclusão é definitiva</span>
+    <p>A publicação é removida do site e do painel e não pode ser recuperada pelo painel. Se a intenção é apenas tirar o card do site por um tempo, prefira <span class="ui">Despublicar</span>: o conteúdo continua guardado como rascunho.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 5 CATEGORIAS -->
+<section class="page">
+  <p class="chapter-label">Capítulo 5</p>
+  <h2>Categorias</h2>
+  <p class="lead">Categorias são os assuntos das publicações. Elas organizam o painel e geram os filtros da seção Atuação em destaque. Inicialmente, o site possui <strong>Saúde</strong>, <strong>Inclusão</strong> e <strong>Bairros</strong>, e novas categorias podem ser criadas a qualquer momento, sem alteração técnica.</p>
+
+  <h3><span class="num">5.1</span>Lista de categorias</h3>
+  <p>Clique em <span class="ui">Categorias</span>, no menu lateral. Cada linha mostra o ícone, o nome, quantas publicações usam a categoria e quantas delas estão publicadas.</p>
+
+  <figure>
+    <div class="shot">
+      <img src="img/11-categorias.png" alt="Lista de categorias">
+      <span class="pin" style="left:80.4%;top:24.2%">1</span>
+      <span class="pin" style="left:79.6%;top:94.5%">2</span>
+      <span class="pin" style="left:87.7%;top:94.5%">3</span>
+      <span class="pin" style="left:92.9%;top:94.5%">4</span>
+    </div>
+  </figure>
+  <div class="split even">
+    <ul class="legend">
+      <li><span class="key">1</span><span><b>Nova categoria</b>Cria uma categoria (seção 5.2).</span></li>
+      <li><span class="key">2</span><span><b>Setas</b>Sobem ou descem a categoria na ordem (seção 5.5).</span></li>
+    </ul>
+    <ul class="legend">
+      <li><span class="key">3</span><span><b>Editar</b>Abre a categoria para alteração (seção 5.4).</span></li>
+      <li><span class="key">4</span><span><b>Lixeira</b>Exclui a categoria, se ela não tiver publicações (seção 5.6).</span></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <span class="box-title">Identificador</span>
+    <p>O texto em letras menores ao lado das contagens (por exemplo, <strong>saude</strong>) é o identificador interno da categoria. Ele é criado automaticamente e não precisa ser alterado.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 5.2 CRIAR -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">5.2</span>Criar uma categoria</h3>
+  <div class="split form-shot">
+    <figure style="margin-top:1mm">
+      <div class="shot">
+        <img src="img/12-nova-categoria.png" alt="Formulário de nova categoria">
+        <span class="pin" style="left:2.6%;top:20.1%">1</span>
+        <span class="pin" style="left:2.6%;top:28.3%">2</span>
+        <span class="pin" style="left:2.6%;top:38.8%">3</span>
+        <span class="pin" style="left:2.6%;top:51.6%">4</span>
+        <span class="pin" style="left:65.9%;top:6.5%">5</span>
+        <span class="pin" style="left:43.4%;top:94%">6</span>
+      </div>
+      <figcaption><b>Nova categoria</b> preenchida com o exemplo “Educação”.</figcaption>
+    </figure>
+    <ul class="legend" style="margin-top:1mm">
+      <li><span class="key">1</span><span><b>Nome</b>De 2 a 40 caracteres. Não pode repetir o nome de outra categoria, mesmo com letras maiúsculas, espaços ou acentos diferentes.</span></li>
+      <li><span class="key">2</span><span><b>Identificador (slug)</b>Preenchido automaticamente a partir do nome. Não é editável e não exige nenhuma ação.</span></li>
+      <li><span class="key">3</span><span><b>Ordem</b>Números menores aparecem antes nos filtros do site e nas listas do painel.</span></li>
+      <li><span class="key">4</span><span><b>Ícone</b>Símbolo exibido no card sem imagem e nas listas (seção 5.3).</span></li>
+      <li><span class="key">5</span><span><b>Prévia</b>Mostra como ficam o filtro e o card sem imagem.</span></li>
+      <li><span class="key">6</span><span><b>Criar categoria</b>Salva a nova categoria.</span></li>
+    </ul>
+  </div>
+
+  <h4>Passo a passo</h4>
+  <ol class="steps">
+    <li>Entre em <span class="ui">Categorias</span> e clique em <span class="ui">Nova categoria</span>.</li>
+    <li>Informe o <span class="ui">Nome</span>.</li>
+    <li>Selecione um <span class="ui">Ícone</span>.</li>
+    <li>Confira a <span class="ui">Prévia</span> e clique em <span class="ui">Criar categoria</span>.</li>
+  </ol>
+  <p>A nova categoria passa a aparecer no campo <span class="ui">Categoria</span> das publicações. No site, ela aparece como filtro assim que houver ao menos uma publicação publicada nela (capítulo 6).</p>
+</section>
+
+<!-- ============================================================ 5.3 / 5.4 -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">5.3</span>Escolher o ícone</h3>
+  <p>Os ícones são predefinidos e seguem o estilo visual do site. Basta clicar no desejado; ele fica marcado com uma borda. Não é necessário, nem possível, enviar arquivos de ícone.</p>
+  <div class="split" style="grid-template-columns: 2.1fr 1fr">
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/13-icones.png" alt="Seleção de ícones"></div>
+      <figcaption><b>Ícones disponíveis.</b> Os três primeiros são os símbolos originais de Saúde, Inclusão e Bairros.</figcaption>
+      <p class="muted" style="margin-top:3mm">Opções: Saúde, Inclusão, Bairros, Educação, Segurança, Transporte, Meio ambiente, Esporte, Cultura, Social, Trabalho, Infraestrutura e Geral. Escolha o que melhor representa o assunto.</p>
+    </figure>
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/13b-previa-categoria.png" alt="Prévia da categoria"></div>
+      <figcaption><b>Prévia</b> do filtro e do card com o ícone escolhido.</figcaption>
+    </figure>
+  </div>
+
+  <h3><span class="num">5.4</span>Editar uma categoria</h3>
+  <div class="split wide-img">
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/14-editar-categoria.png" alt="Tela de edição de categoria"></div>
+      <figcaption><b>Editar categoria.</b> O topo informa quantas publicações usam a categoria.</figcaption>
+    </figure>
+    <ol class="steps" style="margin-top:0">
+      <li>Em <span class="ui">Categorias</span>, clique em <span class="ui">Editar</span> ou no nome da categoria.</li>
+      <li>Altere o nome, o ícone ou a ordem.</li>
+      <li>Clique em <span class="ui">Salvar alterações</span>.</li>
+    </ol>
+  </div>
+  <div class="box attention">
+    <span class="box-title">Renomear não afeta as publicações</span>
+    <p>Ao alterar o nome de uma categoria, todas as publicações vinculadas continuam nela e passam a exibir o novo nome automaticamente. O identificador (slug) permanece o mesmo.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 5.5 / 5.6 -->
+<section class="page">
+  <h3 style="margin-top:0"><span class="num">5.5</span>Reorganizar categorias</h3>
+  <p>A ordem das categorias define a sequência dos filtros no site e das listas no painel. Na lista de <span class="ui">Categorias</span>, use as setas de cada linha: a seta para cima sobe a categoria uma posição e a seta para baixo desce. A mudança é salva na hora. Também é possível informar um número no campo <span class="ui">Ordem</span>, na edição da categoria.</p>
+
+  <h3><span class="num">5.6</span>Excluir uma categoria</h3>
+
+  <div class="box rule">
+    <span class="box-title">Regra importante</span>
+    <p class="big">Uma categoria com publicações não pode ser excluída.</p>
+    <p>O painel nunca apaga publicações junto com uma categoria. Isso protege o conteúdo contra exclusões acidentais. Publicações em rascunho também contam.</p>
+  </div>
+
+  <div class="row-2">
+    <figure>
+      <div class="shot"><img src="img/15-exclusao-bloqueada.png" alt="Exclusão de categoria bloqueada"></div>
+      <figcaption><b>Categoria em uso.</b> O painel informa quantas publicações existem e oferece <span class="ui">Ver publicações</span>.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><img src="img/16-exclusao-confirmacao.png" alt="Confirmação de exclusão de categoria"></div>
+      <figcaption><b>Categoria sem publicações.</b> A exclusão pede confirmação.</figcaption>
+    </figure>
+  </div>
+
+  <div class="split even">
+    <div>
+      <h4 style="margin-top:0">Se a categoria estiver em uso</h4>
+      <ol class="steps">
+        <li>Clique na lixeira da categoria e, na mensagem, em <span class="ui">Ver publicações</span>. A lista já abre filtrada.</li>
+        <li>Abra cada publicação, escolha outra <span class="ui">Categoria</span> e salve.</li>
+        <li>Volte para <span class="ui">Categorias</span> e confirme que ela mostra <strong>0 publicações</strong>.</li>
+        <li>Agora exclua a categoria.</li>
+      </ol>
+    </div>
+    <div>
+      <h4 style="margin-top:0">Se a categoria estiver vazia</h4>
+      <ol class="steps">
+        <li>Clique na lixeira da categoria, ou em <span class="ui">Excluir</span> na tela de edição.</li>
+        <li>Confirme em <span class="ui">Excluir categoria</span>, ou clique em <span class="ui">Cancelar</span>.</li>
+      </ol>
+      <p class="muted">A exclusão é definitiva e não pode ser desfeita pelo painel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 6 / 7 -->
+<section class="page">
+  <p class="chapter-label">Capítulo 6</p>
+  <h2>Filtros no site</h2>
+  <p>Na seção <strong>Atuação em destaque</strong>, os visitantes podem filtrar os cards por assunto. Esses filtros são criados automaticamente a partir das categorias:</p>
+  <ul class="clean">
+    <li>aparece como filtro toda categoria que tenha <strong>pelo menos uma publicação publicada</strong>;</li>
+    <li>categorias sem publicações, ou só com rascunhos, não aparecem no site;</li>
+    <li>ao criar uma categoria e publicar conteúdo nela, o novo filtro surge sozinho, após a atualização do site. Não é preciso pedir alteração técnica.</li>
+  </ul>
+  <figure>
+    <div class="shot">
+      <img src="img/17-site-filtros.png" alt="Seção Atuação em destaque do site com filtros">
+      <span class="pin" style="left:57.3%;top:24.5%">1</span>
+      <span class="pin" style="left:3.8%;top:33.4%">2</span>
+    </div>
+    <figcaption><b>Site público.</b> <span class="key">1</span>Filtros gerados pelas categorias, com a quantidade de publicações. <span class="key">2</span>Cards das publicações publicadas.</figcaption>
+  </figure>
+
+  <div class="box">
+    <span class="box-title">Ordem dos filtros</span>
+    <p>Os filtros seguem a ordem das categorias definida no painel (seção 5.5). O primeiro filtro, “Todos os assuntos”, é fixo e mostra todas as publicações publicadas.</p>
+  </div>
+</section>
+
+<section class="page">
+  <p class="chapter-label">Capítulo 7</p>
+  <h2>Salvei uma alteração. Por que ainda não apareceu?</h2>
+  <p>Toda alteração salva no painel passa por um processo automático antes de aparecer no site:</p>
+  <div class="flow">
+    <div class="stage"><span class="n">1</span><h4>Registro</h4><p>Ao salvar, a alteração é registrada e o painel mostra a confirmação.</p></div>
+    <div class="stage"><span class="n">2</span><h4>Nova versão</h4><p>Uma nova versão do site é preparada automaticamente.</p></div>
+    <div class="stage"><span class="n">3</span><h4>No ar</h4><p>Depois de alguns instantes, a mudança aparece no site público.</p></div>
+  </div>
+
+  <h3>Enquanto aguarda</h3>
+  <ul class="clean">
+    <li>Aguarde alguns instantes e <strong>atualize a página</strong> do site.</li>
+    <li><strong>Evite salvar várias vezes</strong> achando que houve erro: cada salvamento inicia uma nova atualização.</li>
+    <li>O painel já mostra a informação nova logo após salvar; a demora é apenas no site público.</li>
+    <li>Imagens novas podem levar alguns instantes a mais para aparecer (seção 4.3).</li>
+  </ul>
+
+  <div class="box attention">
+    <span class="box-title">Duas pessoas editando ao mesmo tempo</span>
+    <p>Se outra pessoa salvar uma alteração enquanto você edita, o painel mostra “O conteúdo foi alterado por outra sessão. Recarregue a página para ver a versão atual.” Clique em <span class="ui">Recarregar</span> e refaça sua alteração. Assim, nenhuma mudança é sobrescrita por engano.</p>
+  </div>
+
+  <!-- ============================================================ 8 BOAS PRÁTICAS -->
+  <p class="chapter-label" style="margin-top:9mm">Capítulo 8</p>
+  <h2>Boas práticas</h2>
+  <div class="practices">
+    <div class="card">
+      <h4>Publicações</h4>
+      <ul class="clean" style="margin-bottom:0">
+        <li>Use títulos objetivos.</li>
+        <li>Escreva resumos curtos e claros, fiéis à publicação original.</li>
+        <li>Prefira imagens de boa qualidade.</li>
+        <li>Revise o texto e a pré-visualização antes de publicar.</li>
+        <li>Verifique se a categoria está correta.</li>
+        <li>Na dúvida, salve como rascunho e publique depois.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Categorias</h4>
+      <ul class="clean" style="margin-bottom:0">
+        <li>Evite criar categorias muito parecidas.</li>
+        <li>Prefira nomes curtos.</li>
+        <li>Use uma categoria existente quando fizer sentido.</li>
+        <li>Escolha um ícone coerente com o assunto.</li>
+        <li>Antes de excluir, mova as publicações para outra categoria.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Segurança</h4>
+      <ul class="clean" style="margin-bottom:0">
+        <li>Não compartilhe usuário e senha.</li>
+        <li>Use <span class="ui">Sair</span> ao terminar, principalmente em computadores compartilhados.</li>
+        <li>Evite acessar o painel em redes públicas desconhecidas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 9 FAQ -->
+<section class="page">
+  <p class="chapter-label">Capítulo 9</p>
+  <h2>Dúvidas e problemas comuns</h2>
+
+  <div class="faq"><p class="q">Salvei, mas ainda não apareceu no site.</p><p class="a">Aguarde alguns instantes e atualize a página. O site é atualizado automaticamente depois de cada alteração (capítulo 7).</p></div>
+  <div class="faq"><p class="q">A imagem não apareceu imediatamente.</p><p class="a">É normal: imagens novas só são exibidas depois que o site termina de atualizar. Aguarde e atualize a página, sem enviar a imagem de novo.</p></div>
+  <div class="faq"><p class="q">Criei uma publicação, mas ela não aparece no site.</p><p class="a">Verifique se ela está marcada como <span class="pill live">Publicada</span>. Rascunhos não aparecem no site. Se estiver publicada, aguarde a atualização.</p></div>
+  <div class="faq"><p class="q">Não consigo excluir uma categoria.</p><p class="a">Ela provavelmente possui publicações vinculadas, inclusive rascunhos. Mova essas publicações para outra categoria e tente novamente (seção 5.6).</p></div>
+  <div class="faq"><p class="q">Criei uma categoria, mas o filtro não aparece no site.</p><p class="a">O filtro só aparece quando a categoria tem pelo menos uma publicação publicada. Depois disso, aguarde a atualização do site.</p></div>
+  <div class="faq"><p class="q">O painel diz que já existe uma categoria com esse nome.</p><p class="a">Os nomes não podem se repetir, mesmo com diferenças de maiúsculas, espaços ou acentos. Use a categoria existente ou escolha outro nome.</p></div>
+  <div class="faq"><p class="q">As opções “Mover para cima” e “Mover para baixo” sumiram.</p><p class="a">Elas ficam ocultas quando há busca ou filtro ativo na lista de publicações. Limpe a busca e os filtros.</p></div>
+  <div class="faq"><p class="q">Apareceu “O conteúdo foi alterado por outra sessão”.</p><p class="a">Outra pessoa salvou uma alteração ao mesmo tempo. Clique em <span class="ui">Recarregar</span> e refaça a sua alteração.</p></div>
+  <div class="faq"><p class="q">A imagem foi recusada.</p><p class="a">Use um arquivo JPG, JPEG, PNG ou WebP. Se o arquivo for muito grande, escolha outra imagem ou uma versão menor.</p></div>
+  <div class="faq"><p class="q">Fui desconectado do painel.</p><p class="a">O acesso expira depois de algumas horas, por segurança. Entre novamente com seu usuário e senha.</p></div>
+  <div class="faq"><p class="q">Esqueci minha senha ou o acesso foi bloqueado.</p><p class="a">Após várias tentativas incorretas, aguarde os minutos indicados na tela. Se esqueceu a senha, entre em contato com o responsável técnico ou com o administrador do site.</p></div>
+
+  <p class="closing">Manual do Administrador · Site Marco Mayor · Versão 1.0 · Setembro de 2026<br>Em caso de dúvidas não previstas neste manual, entre em contato com o responsável técnico do site.</p>
+</section>
+
+</body>
+</html>
