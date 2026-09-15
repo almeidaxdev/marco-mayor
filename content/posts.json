@@ -123,7 +123,7 @@
     {
       "id": "cc52bb6e-15f8-42cb-9b7c-e23f7d4b180a",
       "slug": "teste-categoria-educacao",
-      "categoryId": "f5086496-cbd2-4852-b0ef-6acdbefbc473",
+      "categoryId": "1110b540-d087-4078-9d64-4576e8c42485",
       "title": "Teste Categoria Educação",
       "excerpt": "Publicação temporária para validar o uso de uma categoria criada pelo painel.",
       "image": null,
@@ -133,7 +133,7 @@
       "order": 7,
       "publishedAt": "2026-09-15T13:00:02.863Z",
       "createdAt": "2026-09-15T13:00:02.863Z",
-      "updatedAt": "2026-09-15T13:00:02.863Z"
+      "updatedAt": "2026-09-15T13:02:34.055Z"
     }
   ]
 }
