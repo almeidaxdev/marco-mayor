@@ -438,9 +438,13 @@ O PDF é gerado a partir de `manual-administrador.html` com o Microsoft Edge ou 
 
 ```powershell
 $html = (Resolve-Path docs\manual\manual-administrador.html).Path
+$tmp  = Join-Path $env:TEMP "manual-impresso.pdf"
 $pdf  = Join-Path (Resolve-Path docs\manual).Path "Manual_Administrador_Marco_Mayor.pdf"
 $url  = "file:///" + ($html -replace '\\','/' -replace ' ','%20')
-& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000 --print-to-pdf="$pdf" $url
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000 --print-to-pdf="$tmp" $url
+python docs\manual\tools\add_actualtext.py $tmp $pdf
 ```
 
-A fonte Schibsted Grotesk (licença SIL Open Font License) está incluída em `fonts/`, então o PDF não depende de internet. Depois de gerar, confira todas as páginas: nenhuma captura cortada, nenhum título sozinho no fim da página.
+O segundo comando (requer `pip install pymupdf`) não altera a aparência do PDF: ele apenas registra o texto exato dos títulos, para que a busca (Ctrl+F), o copiar/colar e os leitores de tela não juntem as palavras. Sem ele, os títulos grandes podem ser lidos como “Nestemanual”.
+
+A fonte Schibsted Grotesk (licença SIL Open Font License, texto em `fonts/OFL.txt`) está incluída em `fonts/`, então o PDF não depende de internet. Depois de gerar, confira todas as páginas: nenhuma captura cortada, nenhum título sozinho no fim da página.
