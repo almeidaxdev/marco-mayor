@@ -89,12 +89,14 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
 
   return (
     <div>
-      <div className="shell grid gap-8 xl:grid-cols-12 xl:items-end xl:gap-10">
-        <div className="xl:col-span-7">{heading}</div>
+      {/* From xl the filters column sizes to its content (one line) and the heading takes the rest;
+          between 1280 and 1439px the pills tighten slightly so the row still fits beside the heading. */}
+      <div className="shell grid gap-8 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end xl:gap-10">
+        <div>{heading}</div>
         <div
           role="group"
           aria-label="Filtrar publicações por assunto"
-          className="no-scrollbar -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:flex-wrap sm:px-0 xl:col-span-5 xl:justify-end xl:pb-1.5"
+          className="no-scrollbar -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:flex-wrap sm:px-0 xl:justify-end xl:pb-1.5 xl:max-[90rem]:gap-1.5"
         >
           {filters.map((option) => {
             const pressed = filter === option.value;
@@ -107,7 +109,7 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
                 disabled={option.count === 0}
                 onClick={() => selectFilter(option.value)}
                 data-slug={option.value === "todos" ? "todos" : CATEGORY_SLUGS[option.value]}
-                className="inline-flex h-11 shrink-0 items-center gap-2.5 rounded-full border border-line bg-paper px-4 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-[background-color,border-color,color] duration-200 hover:border-navy/50 disabled:cursor-not-allowed disabled:opacity-45 aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-paper"
+                className="inline-flex h-11 shrink-0 items-center gap-2.5 rounded-full border border-line bg-paper px-4 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-[background-color,border-color,color] duration-200 hover:border-navy/50 xl:max-[90rem]:px-3.5 disabled:cursor-not-allowed disabled:opacity-45 aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-paper"
               >
                 {option.label}
                 <span
@@ -132,6 +134,11 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
         aria-label="Publicações em destaque"
         className="relative mt-8 sm:mt-12"
       >
+        {/* Track geometry: the track's content box always equals the shell content width, so item
+            percentages resolve against the same grid as the heading and filters.
+            - Below xl the track bleeds to the viewport edge (inset = gutter); the next card peeks through the gutter.
+            - From xl the track is clipped to the container (the inset only leaves room for the hover shadow and
+              is smaller than the gap), showing exactly 3 cards: (width − 2 gaps) / 3. */}
         {visible.length === 0 ? (
           <div className="shell">
             <p className="border border-dashed border-line px-6 py-16 text-center text-slate">
@@ -142,13 +149,13 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
           <ul
             id={trackId}
             ref={trackRef}
-            className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pt-2 pb-6 [padding-inline-end:var(--gutter)] [padding-inline-start:max(var(--gutter),calc((100%-var(--container))/2))] [scroll-padding-inline:max(var(--gutter),calc((100%-var(--container))/2))] sm:gap-5 lg:gap-6"
+            className="no-scrollbar flex snap-x snap-mandatory gap-[var(--track-gap)] overflow-x-auto overscroll-x-contain pt-2 pb-6 [--track-gap:1rem] [--track-inset:var(--gutter)] [padding-inline:var(--track-inset)] [scroll-padding-inline:var(--track-inset)] sm:[--track-gap:1.25rem] lg:[--track-gap:1.5rem] xl:mx-auto xl:w-[calc(min(100%-2*var(--gutter),var(--container))+2*var(--track-inset))] xl:[--track-inset:0.5rem]"
           >
             {visible.map((item, index) => (
               <li
                 key={`${filter}-${item.id}`}
                 style={{ "--i": index } as React.CSSProperties}
-                className="anim-card w-[82vw] max-w-[24rem] shrink-0 snap-start sm:w-[44vw] lg:w-[36vw] xl:w-[max(20rem,calc((min(100vw,var(--container))-4.5rem)/3.35))] xl:max-w-[28rem]"
+                className="anim-card w-[82vw] max-w-[24rem] shrink-0 snap-start sm:w-[44vw] md:w-[calc((100%-var(--track-gap))/2)] md:max-w-none xl:w-[calc((100%-2*var(--track-gap))/3)]"
               >
                 {item.card}
               </li>
