@@ -1,26 +1,285 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+/* Wide but short screens (e.g. 1366×768 laptops). */
+@custom-variant short (@media (min-width: 64rem) and (max-height: 51rem));
+
+/* ------------------------------------------------------------------
+   Brand tokens — single source for colors, type, motion and layout.
+   ------------------------------------------------------------------ */
+@theme {
+  /* Blues */
+  --color-ink: #0d2437;
+  --color-ink-2: #0a1d2d;
+  --color-navy: #142f46;
+  --color-navy-2: #1d3e5a;
+  --color-steel: #2c4d69;
+  --color-mist: #a7bacb;
+
+  /* Accent */
+  --color-sun: #f3ce4b;
+  --color-sun-deep: #e2b92a;
+  --color-sun-soft: #fbefc2;
+
+  /* Neutrals (cool, slightly green-grey to sit with #FAFBF9) */
+  --color-paper: #fafbf9;
+  --color-paper-2: #eff2ef;
+  --color-paper-3: #e4e9e6;
+  --color-line: #d5dcda;
+  --color-slate: #4f6275;
+  --color-slate-2: #3b4d5e;
+
+  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display: clamp(3rem, min(1.35rem + 5.6vw, 12.5svh), 7.25rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.038em;
+  --text-h2: clamp(2.25rem, 1.4rem + 2.9vw, 4.5rem);
+  --text-h2--line-height: 0.98;
+  --text-h2--letter-spacing: -0.035em;
+  --text-h3: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+  --text-h3--line-height: 1.06;
+  --text-h3--letter-spacing: -0.022em;
+  --text-lead: clamp(1.0625rem, 0.98rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.5;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.01em;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --radius-card: 2px;
+
+  --shadow-lift: 0 1px 0 rgb(13 36 55 / 0.04), 0 24px 36px -30px rgb(13 36 55 / 0.45);
 }
 
+:root {
+  --gutter: clamp(1.25rem, 0.5rem + 3.2vw, 4.5rem);
+  --container: 1520px;
+  --header-h: 4.5rem;
+  /* Vertical rhythm: full section spacing, and the tighter "continuation" spacing
+     used where one light section hands off to the next. */
+  --section-y: clamp(4.5rem, 2.6rem + 6vw, 9rem);
+  --section-y-tight: clamp(3rem, 2rem + 3.2vw, 5.5rem);
+  --dur-fast: 180ms;
+  --dur: 280ms;
+  --dur-slow: 520ms;
+  --z-header: 40;
+  --z-menu: 60;
+  --z-skip: 100;
+}
+
+/* ------------------------------------------------------------------
+   shadcn tokens mapped onto the brand (used mainly by /admin)
+   ------------------------------------------------------------------ */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #fafbf9;
+  --foreground: #0d2437;
+  --card: #ffffff;
+  --card-foreground: #0d2437;
+  --popover: #ffffff;
+  --popover-foreground: #0d2437;
+  --primary: #142f46;
+  --primary-foreground: #fafbf9;
+  --secondary: #eff2ef;
+  --secondary-foreground: #142f46;
+  --muted: #eff2ef;
+  --muted-foreground: #4f6275;
+  --accent: #e9eeec;
+  --accent-foreground: #0d2437;
+  --destructive: #b42318;
+  --border: #dfe5e2;
+  --input: #d5dcda;
+  --ring: #142f46;
+  --radius: 0.5rem;
+  --sidebar: #0d2437;
+  --sidebar-foreground: #dbe5ec;
+  --sidebar-primary: #f3ce4b;
+  --sidebar-primary-foreground: #0d2437;
+  --sidebar-accent: #173651;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1d3e5a;
+  --sidebar-ring: #f3ce4b;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  a,
+  button,
+  [role="button"],
+  input,
+  label,
+  select,
+  textarea {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+  }
+  .on-dark :where(a, button, [tabindex]):focus-visible {
+    outline-color: var(--color-sun);
+  }
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Site utilities
+   ------------------------------------------------------------------ */
+@utility shell {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Hero load sequence — the single orchestrated motion moment. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes photo-in {
+  from {
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rule-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-rise {
+  animation: rise 760ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+}
+.anim-photo {
+  animation: photo-in 1400ms var(--ease-out-quart) both;
+}
+.anim-rule {
+  transform-origin: left;
+  animation: rule-in 900ms var(--ease-out-quart) both;
+  animation-delay: 560ms;
+}
+.anim-card {
+  animation: card-in 420ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
 }
