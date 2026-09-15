@@ -98,12 +98,12 @@
       "excerpt": "Publicação temporária para validar o fluxo completo do painel em produção.",
       "image": "/posts/teste-producao-com-imagem-57b203.webp",
       "externalUrl": null,
-      "published": false,
+      "published": true,
       "featured": false,
       "order": 7,
-      "publishedAt": null,
+      "publishedAt": "2026-09-15T11:31:52.113Z",
       "createdAt": "2026-09-15T11:27:50.722Z",
-      "updatedAt": "2026-09-15T11:27:50.722Z"
+      "updatedAt": "2026-09-15T11:31:52.113Z"
     }
   ]
 }
