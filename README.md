@@ -7,7 +7,7 @@ Não é o portal oficial da Câmara Municipal.
 O projeto tem duas partes:
 
 - **Site público** (`/`): Hero, Atuação em destaque (carrossel filtrável), Sobre Marco, Contato e redes.
-- **Área administrativa** (`/admin`): gerenciamento das publicações, sem banco de dados. Conteúdo em `content/posts.json`, imagens em `public/posts/`.
+- **Área administrativa** (`/admin`): gerenciamento das publicações e das categorias, sem banco de dados. Conteúdo em `content/posts.json`, imagens em `public/posts/`.
 
 ---
 
@@ -63,7 +63,7 @@ Preencha também `ADMIN_USERNAME` e mantenha `CONTENT_DRIVER=local`.
 ## Estrutura
 
 ```
-content/posts.json              Fonte única das publicações
+content/posts.json              Fonte única do conteúdo (categorias + publicações)
 public/images/marco-mayor.jpg   Fotografia (única) usada na Hero
 public/posts/                   Imagens das publicações (inicia vazia)
 scripts/hash-password.mjs       Gerador de hash de senha
@@ -74,7 +74,7 @@ src/
     admin/
       actions.ts                Server Actions (login, CRUD) — todas verificam sessão
       login/                    /admin/login
-      (panel)/                  /admin, /admin/posts, /admin/posts/new, /admin/posts/[id]
+      (panel)/                  /admin, /admin/posts(/new, /[id]), /admin/categories(/new, /[id])
   components/
     site/                       Hero, header, cards, carrossel, seções, footer
     admin/                      Sidebar, tabela, formulário, diálogos
@@ -88,15 +88,26 @@ src/
 
 ---
 
-## Publicações (`content/posts.json`)
+## Conteúdo (`content/posts.json`)
+
+Categorias e publicações ficam no mesmo arquivo: cada gravação é validada inteira (inclusive as referências entre publicação e categoria) e vira um único commit.
 
 ```json
 {
+  "categories": [
+    {
+      "id": "1110b540-d087-4078-9d64-4576e8c42485",
+      "name": "Saúde",
+      "slug": "saude",
+      "icon": "health",
+      "order": 1
+    }
+  ],
   "posts": [
     {
       "id": "uuid",
       "slug": "farmacia-da-solidariedade",
-      "category": "Saúde",
+      "categoryId": "1110b540-d087-4078-9d64-4576e8c42485",
       "title": "Farmácia da Solidariedade",
       "excerpt": "Conheça o tema apresentado por Marco Mayor em suas redes sociais.",
       "image": null,
@@ -112,7 +123,20 @@ src/
 }
 ```
 
-- `category`: `Saúde`, `Inclusão` ou `Bairros`. “Todos os assuntos” é filtro, não categoria.
+### Categorias
+
+- `id`: UUID estável. As publicações referenciam a categoria por `categoryId`, então renomear não altera nenhuma publicação.
+- `name`: 2 a 40 caracteres; letras, números, espaços e `& ' ( ) , . / -`. Não pode repetir outro nome (ignorando maiúsculas, espaços e acentos).
+- `slug`: gerado a partir do nome na criação e mantido ao renomear.
+- `icon`: chave de uma lista fechada (`src/lib/content/category-icons.ts`). `health`, `inclusion` e `neighborhoods` são os símbolos originais de Saúde, Inclusão e Bairros; as demais usam Lucide. Nenhum SVG vem do conteúdo.
+- `order`: menor aparece antes nos filtros e nas listas.
+- Uma categoria só pode ser excluída quando nenhuma publicação a usa (não há exclusão em cascata).
+- No site, os filtros são gerados a partir das categorias que têm publicações publicadas. “Todos os assuntos” é filtro, não categoria.
+- O formato antigo (`"category": "Saúde"`, sem `categories`) ainda é lido e convertido em memória com os mesmos IDs; a primeira gravação salva no formato novo.
+
+### Publicações
+
+- `categoryId`: ID de uma categoria existente.
 - `image`: `null` ou `/posts/<arquivo>.webp`. Sem imagem, o card usa a versão tipográfica com o símbolo da categoria.
 - `externalUrl`: link `https://` da publicação original. Sem link, o card leva à seção Contato e redes.
 - `featured`: aparece primeiro, em card azul com a etiqueta “Destaque”.
@@ -139,7 +163,7 @@ O arquivo é validado com Zod na leitura e antes de cada gravação. Um JSON inv
 
 1. `src/proxy.ts` redireciona `/admin/*` (exceto `/admin/login`) quando não há sessão válida. É apenas uma checagem otimista.
 2. `src/app/admin/(panel)/layout.tsx` chama `requireAdmin()` no servidor.
-3. **Toda Server Action** (`savePost`, `setPublished`, `setFeatured`, `movePost`, `deletePost`) chama `requireAdmin()` antes de qualquer leitura ou escrita. Isso vale mesmo quando a action é invocada fora da interface.
+3. **Toda Server Action** (`savePost`, `setPublished`, `setFeatured`, `movePost`, `deletePost`, `saveCategory`, `moveCategory`, `deleteCategory`) chama `requireAdmin()` antes de qualquer leitura ou escrita. Isso vale mesmo quando a action é invocada fora da interface.
 
 ---
 
@@ -160,7 +184,7 @@ O **site público** sempre lê o `content/posts.json` do build atual. O **admin*
 
 1. O admin carrega a página com a `version` do arquivo (o SHA do blob de `posts.json`).
 2. Ao salvar, o servidor lê o SHA atual do branch e do `posts.json`.
-3. Se o SHA mudou, a action retorna **conflito**: a interface mostra “As publicações foram alteradas por outra sessão. Recarregue a página…” e nada é sobrescrito.
+3. Se o SHA mudou, a action retorna **conflito**: a interface mostra “O conteúdo foi alterado por outra sessão. Recarregue a página…” e nada é sobrescrito.
 4. Se não mudou, aplica a alteração validada e cria **um único commit** pela Git Data API (blobs → tree → commit). Esse commit inclui o `posts.json` e as imagens enviadas ou removidas.
 5. O branch é atualizado com `force: false`. Se alguém fez commit no intervalo, o GitHub rejeita, e isso também vira conflito.
 6. A Vercel detecta o commit e publica um novo deploy. O admin avisa: “O site público será atualizado após o próximo deploy.”
@@ -239,6 +263,15 @@ Se o branch tiver regras de proteção que exigem pull request, os commits do ad
 3. Confira a pré-visualização do card.
 4. Ative **Publicada** para exibir no site e **Criar publicação**.
 
+## Como gerenciar categorias
+
+1. Acesse `/admin/categories`.
+2. **Nova categoria** → nome, ícone (com prévia) e ordem. O slug é gerado automaticamente.
+3. A categoria passa a aparecer no campo **Categoria** das publicações. No site, o filtro surge quando houver ao menos uma publicação publicada nela.
+4. Para excluir, mova antes as publicações da categoria; o painel mostra quantas são e leva à lista filtrada.
+
+Em produção, cada criação, edição, reordenação ou exclusão gera um commit e um deploy, como as publicações.
+
 ## Como adicionar a foto de uma publicação
 
 1. Abra a publicação em `/admin/posts`.
@@ -271,7 +304,8 @@ Em produção, a imagem entra no mesmo commit do `posts.json` e aparece no site 
 | “Muitas tentativas” | Rate limit de login | Aguarde 15 min ou reinicie o servidor local |
 | “Configure CONTENT_DRIVER=github” | Driver local rodando na Vercel | Use `CONTENT_DRIVER=github` em produção |
 | “GitHub recusou o acesso (401/403)” | Token expirado, sem acesso ao repo ou sem *Contents: Read and write* | Gere novo token fine-grained |
-| “Alteradas por outra sessão” | Outro commit mudou `posts.json` | Clique em **Recarregar** e refaça a alteração |
+| “Alterado por outra sessão” | Outro commit mudou `posts.json` | Clique em **Recarregar** e refaça a alteração |
+| “Esta categoria possui N publicações” | Exclusão de categoria em uso | Mova as publicações para outra categoria antes |
 | Alteração salva não aparece no site | Deploy ainda em andamento | Acompanhe o deploy na Vercel |
 | Imagem nova não aparece no admin em produção | O arquivo só é servido após o deploy | Aguarde o deploy terminar |
-| Build falha em `posts.json` | JSON editado manualmente ficou inválido | Corrija o campo indicado pelo Zod |
+| Build falha em `posts.json` | JSON editado manualmente ficou inválido (ex.: `categoryId` inexistente) | Corrija o campo indicado pelo Zod |

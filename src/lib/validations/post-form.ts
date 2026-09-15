@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { CATEGORIES } from "@/lib/content/schema";
 
 const checkbox = z
   .union([z.literal("on"), z.literal("true"), z.literal("")])
@@ -9,7 +8,8 @@ const checkbox = z
 export const PostFormSchema = z.object({
   id: z.uuid().optional(),
   version: z.string().min(1, { error: "Versão ausente. Recarregue a página." }),
-  category: z.enum(CATEGORIES, { error: "Escolha uma categoria." }),
+  // Existence is checked on the server against the current content, not just the format.
+  categoryId: z.uuid({ error: "Escolha uma categoria." }),
   title: z
     .string()
     .trim()
@@ -34,10 +34,12 @@ export const PostFormSchema = z.object({
 
 export type PostFormValues = z.infer<typeof PostFormSchema>;
 
-export type FieldErrors = Partial<Record<"category" | "title" | "excerpt" | "externalUrl" | "order" | "image", string>>;
+export type FieldErrors = Partial<
+  Record<"categoryId" | "title" | "excerpt" | "externalUrl" | "order" | "image" | "name" | "icon", string>
+>;
 
 export type ActionResult =
   | { status: "idle" }
-  | { status: "success"; message: string; postId?: string }
+  | { status: "success"; message: string; postId?: string; categoryId?: string }
   | { status: "error"; message: string; fieldErrors?: FieldErrors }
   | { status: "conflict"; message: string };

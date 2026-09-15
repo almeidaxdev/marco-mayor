@@ -7,7 +7,7 @@ import { Sobre } from "@/components/site/sobre";
 import { getPublishedPosts } from "@/lib/content/public-posts";
 
 export default async function HomePage() {
-  const posts = await getPublishedPosts();
+  const content = await getPublishedPosts();
 
   return (
     <>
@@ -20,7 +20,7 @@ export default async function HomePage() {
       <SiteHeader />
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <Hero />
-        <Atuacao posts={posts} />
+        <Atuacao content={content} />
         <Sobre />
         <Contato />
       </main>

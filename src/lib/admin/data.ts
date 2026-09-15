@@ -16,7 +16,7 @@ export async function loadAdminContent(): Promise<AdminContent> {
     console.error("[admin] failed to load content", error);
     return {
       ok: false,
-      message: `Não foi possível carregar as publicações (armazenamento: ${safeDriver()}). Verifique a configuração e tente novamente.`,
+      message: `Não foi possível carregar o conteúdo (armazenamento: ${safeDriver()}). Verifique a configuração e tente novamente.`,
     };
   }
 }

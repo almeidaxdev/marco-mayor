@@ -8,7 +8,8 @@ import { formatDateTime, loadAdminContent } from "@/lib/admin/data";
 
 export const metadata: Metadata = { title: "Publicações" };
 
-export default async function AdminPostsPage() {
+export default async function AdminPostsPage({ searchParams }: PageProps<"/admin/posts">) {
+  const { categoria } = await searchParams;
   const content = await loadAdminContent();
 
   return (
@@ -28,8 +29,10 @@ export default async function AdminPostsPage() {
       {content.ok ? (
         <PostsTable
           posts={content.snapshot.posts}
+          categories={content.snapshot.categories}
           version={content.snapshot.version}
           updatedLabels={Object.fromEntries(content.snapshot.posts.map((post) => [post.id, formatDateTime(post.updatedAt)]))}
+          initialCategory={typeof categoria === "string" ? categoria : undefined}
         />
       ) : (
         <ContentError message={content.message} />

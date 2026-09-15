@@ -6,7 +6,7 @@ import { CategoryGlyph } from "@/components/site/category-glyph";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatDateTime, loadAdminContent } from "@/lib/admin/data";
-import { CATEGORIES, type Post } from "@/lib/content/schema";
+import { sortCategories, type Category, type Post } from "@/lib/content/schema";
 
 export const metadata: Metadata = { title: "Visão geral" };
 
@@ -31,16 +31,17 @@ export default async function AdminDashboardPage() {
       {!content.ok ? (
         <ContentError message={content.message} />
       ) : (
-        <Dashboard posts={content.snapshot.posts} driver={content.driver} />
+        <Dashboard posts={content.snapshot.posts} categories={content.snapshot.categories} driver={content.driver} />
       )}
     </>
   );
 }
 
-function Dashboard({ posts, driver }: { posts: Post[]; driver: "local" | "github" }) {
+function Dashboard({ posts, categories, driver }: { posts: Post[]; categories: Category[]; driver: "local" | "github" }) {
   const published = posts.filter((post) => post.published).length;
   const drafts = posts.length - published;
   const recent = [...posts].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 5);
+  const categoryName = new Map(categories.map((category) => [category.id, category.name]));
 
   const totals = [
     { label: "Total de publicações", value: posts.length },
@@ -65,20 +66,28 @@ function Dashboard({ posts, driver }: { posts: Post[]; driver: "local" | "github
       </section>
 
       <section aria-labelledby="categorias" className="space-y-3">
-        <h2 id="categorias" className="text-base font-bold text-ink">
-          Por categoria
-        </h2>
-        <ul className="grid gap-3 sm:grid-cols-3">
-          {CATEGORIES.map((category) => {
-            const inCategory = posts.filter((post) => post.category === category);
+        <div className="flex items-center justify-between gap-4">
+          <h2 id="categorias" className="text-base font-bold text-ink">
+            Por categoria
+          </h2>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/admin/categories">
+              Gerenciar
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </Button>
+        </div>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {sortCategories(categories).map((category) => {
+            const inCategory = posts.filter((post) => post.categoryId === category.id);
             const live = inCategory.filter((post) => post.published).length;
             return (
-              <li key={category} className="flex items-center gap-4 rounded-lg border bg-card p-4">
+              <li key={category.id} className="flex items-center gap-4 rounded-lg border bg-card p-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-md bg-secondary text-navy">
-                  <CategoryGlyph category={category} simple className="size-5" />
+                  <CategoryGlyph icon={category.icon} simple className="size-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-semibold text-ink">{category}</p>
+                  <p className="truncate font-semibold text-ink">{category.name}</p>
                   <p className="text-sm text-muted-foreground">
                     <span className="tabular">{inCategory.length}</span> no total ·{" "}
                     <span className="tabular">{live}</span> publicadas
@@ -120,7 +129,7 @@ function Dashboard({ posts, driver }: { posts: Post[]; driver: "local" | "github
                     <Badge variant={post.published ? "secondary" : "outline"}>
                       {post.published ? "Publicada" : "Rascunho"}
                     </Badge>
-                    <span>{post.category}</span>
+                    <span>{categoryName.get(post.categoryId)}</span>
                     <span aria-hidden="true">·</span>
                     <time dateTime={post.updatedAt}>{formatDateTime(post.updatedAt)}</time>
                   </span>

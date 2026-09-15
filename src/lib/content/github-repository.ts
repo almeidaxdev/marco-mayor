@@ -1,11 +1,11 @@
 import "server-only";
-import { PostsFileSchema, POST_IMAGE_PATTERN } from "./schema";
+import { parseContentFile, serializeContent } from "./content-file";
+import { POST_IMAGE_PATTERN } from "./schema";
 import {
   ContentConflictError,
   ContentConfigError,
   POSTS_FILE_PATH,
   POST_IMAGES_DIR,
-  serializePosts,
   type CommitInput,
   type ContentSnapshot,
   type PostRepository,
@@ -103,23 +103,23 @@ export class GitHubPostRepository implements PostRepository {
   async read(): Promise<ContentSnapshot> {
     const head = await this.headCommitSha();
     const { blobSha, raw } = await this.readAt(head);
-    const parsed = PostsFileSchema.parse(JSON.parse(raw));
-    return { posts: parsed.posts, version: blobSha };
+    const parsed = parseContentFile(raw);
+    return { categories: parsed.categories, posts: parsed.posts, version: blobSha };
   }
 
   /**
-   * Writes posts.json plus any image uploads/deletions as ONE commit via the Git Data API,
-   * so a single save triggers a single deploy. The ref update is not forced: if the branch
-   * moved since we read it, GitHub rejects the update and we surface a conflict.
+   * Writes posts.json (categories + posts) plus any image uploads/deletions as ONE commit via the
+   * Git Data API, so a single save triggers a single deploy. The ref update is not forced: if the
+   * branch moved since we read it, GitHub rejects the update and we surface a conflict.
    */
-  async commit({ posts, expectedVersion, message, uploads = [], deletions = [] }: CommitInput) {
+  async commit({ categories, posts, expectedVersion, message, uploads = [], deletions = [] }: CommitInput) {
     const head = await this.headCommitSha();
     const current = await this.readAt(head);
     if (current.blobSha !== expectedVersion) {
       throw new ContentConflictError();
     }
 
-    const content = serializePosts(PostsFileSchema.parse({ posts }).posts);
+    const content = serializeContent({ categories, posts });
     const headCommit = await this.request<{ tree: { sha: string } }>("GET", `/git/commits/${head}`);
 
     const postsBlob = await this.request<{ sha: string }>("POST", "/git/blobs", {

@@ -1,8 +1,8 @@
-import type { Post } from "@/lib/content/schema";
+import type { PublishedContent } from "@/lib/content/public-posts";
 import { PostCard } from "./post-card";
 import { PostCarousel } from "./post-carousel";
 
-export function Atuacao({ posts }: { posts: Post[] }) {
+export function Atuacao({ content }: { content: PublishedContent }) {
   return (
     <section
       id="atuacao"
@@ -16,13 +16,14 @@ export function Atuacao({ posts }: { posts: Post[] }) {
               Atuação em destaque
             </h2>
             <p className="mt-4 max-w-[44ch] text-lead text-slate sm:mt-5">
-              Saúde, inclusão e presença nos bairros. Os assuntos compartilhados por Marco Mayor.
+              Acompanhe os temas e assuntos compartilhados por Marco Mayor.
             </p>
           </>
         }
-        items={posts.map((post) => ({
+        categories={content.categories.map(({ id, name, slug }) => ({ id, name, slug }))}
+        items={content.posts.map((post) => ({
           id: post.id,
-          category: post.category,
+          categoryId: post.categoryId,
           card: <PostCard post={post} />,
         }))}
       />

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import type { Post } from "@/lib/content/schema";
+import type { Category, Post } from "@/lib/content/schema";
 import { CategoryGlyph, CategoryMark } from "./category-glyph";
 
-export type PostCardData = Pick<Post, "category" | "title" | "excerpt" | "image" | "externalUrl" | "featured">;
+export type PostCardData = Pick<Post, "title" | "excerpt" | "image" | "externalUrl" | "featured"> & {
+  category: Pick<Category, "name" | "icon">;
+};
 
 type PostCardProps = {
   post: PostCardData;
@@ -62,7 +64,8 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
             className={`flex pt-0.5 ${hasImage ? "flex-wrap items-center gap-x-3 gap-y-2" : "flex-col items-start gap-2.5"}`}
           >
             <CategoryMark
-              category={post.category}
+              name={post.category.name}
+              icon={post.category.icon}
               withIcon={hasImage}
               className={dark ? "text-paper/85" : "text-slate"}
             />
@@ -75,7 +78,7 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
 
           {hasImage ? null : (
             <CategoryGlyph
-              category={post.category}
+              icon={post.category.icon}
               strokeWidth={1.1}
               className={`size-16 shrink-0 transition-[color,transform] duration-500 ease-[var(--ease-out-quart)] group-hover/card:rotate-[3deg] sm:size-[4.5rem] ${
                 dark

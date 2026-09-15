@@ -29,15 +29,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CATEGORIES, sortPosts, type Post } from "@/lib/content/schema";
+import { sortCategories, sortPosts, type Category, type Post } from "@/lib/content/schema";
 import { DeletePostDialog } from "./delete-post-dialog";
 import { useContentAction } from "./use-content-action";
 
-type Props = { posts: Post[]; version: string; updatedLabels: Record<string, string> };
+type Props = {
+  posts: Post[];
+  categories: Category[];
+  version: string;
+  updatedLabels: Record<string, string>;
+  /** Category id to pre-select (from ?categoria=), e.g. when coming from a blocked category deletion. */
+  initialCategory?: string;
+};
 
-export function PostsTable({ posts, version, updatedLabels }: Props) {
+export function PostsTable({ posts, categories, version, updatedLabels, initialCategory }: Props) {
+  const orderedCategories = useMemo(() => sortCategories(categories), [categories]);
+  const categoryById = useMemo(() => new Map(categories.map((item) => [item.id, item])), [categories]);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(
+    initialCategory && categoryById.has(initialCategory) ? initialCategory : "all",
+  );
   const [status, setStatus] = useState("all");
   const [toDelete, setToDelete] = useState<Post | null>(null);
   const { pending, run } = useContentAction();
@@ -47,13 +58,24 @@ export function PostsTable({ posts, version, updatedLabels }: Props) {
     const q = query.trim().toLocaleLowerCase("pt-BR");
     return ordered.filter(
       (post) =>
-        (category === "all" || post.category === category) &&
+        (category === "all" || post.categoryId === category) &&
         (status === "all" || (status === "published" ? post.published : !post.published)) &&
         (!q || `${post.title} ${post.excerpt}`.toLocaleLowerCase("pt-BR").includes(q)),
     );
   }, [ordered, query, category, status]);
 
   const isFiltering = query !== "" || category !== "all" || status !== "all";
+
+  function categoryLabel(post: Post) {
+    const item = categoryById.get(post.categoryId);
+    if (!item) return null;
+    return (
+      <>
+        <CategoryGlyph icon={item.icon} simple className="size-3.5 shrink-0 text-navy" />
+        {item.name}
+      </>
+    );
+  }
 
   function imageShared(post: Post) {
     return Boolean(post.image) && posts.some((other) => other.id !== post.id && other.image === post.image);
@@ -171,9 +193,9 @@ export function PostsTable({ posts, version, updatedLabels }: Props) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Todas as categorias</SelectItem>
-              {CATEGORIES.map((item) => (
-                <SelectItem key={item} value={item}>
-                  {item}
+              {orderedCategories.map((item) => (
+                <SelectItem key={item.id} value={item.id}>
+                  {item.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -235,7 +257,7 @@ export function PostsTable({ posts, version, updatedLabels }: Props) {
                   <th scope="col" className="px-4 py-3 font-medium">
                     Publicação
                   </th>
-                  <th scope="col" className="w-32 px-4 py-3 font-medium">
+                  <th scope="col" className="w-40 px-4 py-3 font-medium">
                     Categoria
                   </th>
                   <th scope="col" className="w-44 px-4 py-3 font-medium">
@@ -265,10 +287,7 @@ export function PostsTable({ posts, version, updatedLabels }: Props) {
                         <p className="mt-0.5 truncate text-muted-foreground">{post.excerpt || "Sem resumo"}</p>
                       </td>
                       <td className="px-4 py-3.5">
-                        <span className="inline-flex items-center gap-2">
-                          <CategoryGlyph category={post.category} simple className="size-3.5 text-navy" />
-                          {post.category}
-                        </span>
+                        <span className="inline-flex items-center gap-2">{categoryLabel(post)}</span>
                       </td>
                       <td className="px-4 py-3.5">{statusBadges(post)}</td>
                       <td className="px-4 py-3.5 text-muted-foreground">
@@ -291,8 +310,7 @@ export function PostsTable({ posts, version, updatedLabels }: Props) {
                   <div className="flex items-start gap-3">
                     <div className="min-w-0 flex-1">
                       <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <CategoryGlyph category={post.category} simple className="size-3.5 text-navy" />
-                        {post.category}
+                        {categoryLabel(post)}
                         <span aria-hidden="true">·</span>
                         <span className="tabular">Ordem {post.order}</span>
                       </p>

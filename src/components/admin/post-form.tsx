@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useId, useRef, useState } from "react";
 import { ArrowLeft, ImagePlus, Loader2, RotateCcw, Trash2, Upload } from "lucide-react";
 import { savePost } from "@/app/admin/actions";
+import { CategoryGlyph } from "@/components/site/category-glyph";
 import { PostCard } from "@/components/site/post-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,13 +13,14 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { CATEGORIES, type Category, type Post } from "@/lib/content/schema";
+import { sortCategories, type Category, type Post } from "@/lib/content/schema";
 import type { ActionResult } from "@/lib/validations/post-form";
 import { DeletePostDialog } from "./delete-post-dialog";
 import { isDiscardRequested, notify } from "./use-content-action";
 
 type Props = {
   post?: Post;
+  categories: Category[];
   version: string;
   nextOrder: number;
   imageShared?: boolean;
@@ -45,11 +47,13 @@ async function downscale(file: File): Promise<File> {
   return new File([blob], `${base}.webp`, { type: "image/webp" });
 }
 
-export function PostForm({ post, version, nextOrder, imageShared = false }: Props) {
+export function PostForm({ post, categories, version, nextOrder, imageShared = false }: Props) {
   const router = useRouter();
   const isEdit = Boolean(post);
+  const orderedCategories = sortCategories(categories);
 
-  const [category, setCategory] = useState<Category>(post?.category ?? "Saúde");
+  const [categoryId, setCategoryId] = useState(post?.categoryId ?? orderedCategories[0]?.id ?? "");
+  const selectedCategory = orderedCategories.find((item) => item.id === categoryId);
   const [title, setTitle] = useState(post?.title ?? "");
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
   const [externalUrl, setExternalUrl] = useState(post?.externalUrl ?? "");
@@ -174,26 +178,42 @@ export function PostForm({ post, version, nextOrder, imageShared = false }: Prop
 
             <div className="space-y-2">
               <Label htmlFor={ids.category}>Categoria</Label>
-              <Select
-                name="category"
-                value={category}
-                onValueChange={(value) => {
-                  setCategory(value as Category);
-                  setDirty(true);
-                }}
-              >
-                <SelectTrigger id={ids.category} className="w-full data-[size=default]:h-10 sm:w-64" aria-invalid={Boolean(fieldErrors.category)}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {CATEGORIES.map((item) => (
-                    <SelectItem key={item} value={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldError id={`${ids.category}-error`} message={fieldErrors.category} />
+              {orderedCategories.length === 0 ? (
+                <p className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">
+                  Nenhuma categoria cadastrada.{" "}
+                  <Link href="/admin/categories/new" className="font-medium text-ink underline underline-offset-4">
+                    Crie uma categoria
+                  </Link>{" "}
+                  antes de salvar a publicação.
+                </p>
+              ) : (
+                <Select
+                  name="categoryId"
+                  value={categoryId}
+                  onValueChange={(value) => {
+                    setCategoryId(value);
+                    setDirty(true);
+                  }}
+                >
+                  <SelectTrigger
+                    id={ids.category}
+                    className="w-full data-[size=default]:h-10 sm:w-64"
+                    aria-invalid={Boolean(fieldErrors.categoryId)}
+                    aria-describedby={fieldErrors.categoryId ? `${ids.category}-error` : undefined}
+                  >
+                    <SelectValue placeholder="Escolha uma categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {orderedCategories.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        <CategoryGlyph icon={item.icon} simple className="size-3.5 text-navy" />
+                        {item.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              <FieldError id={`${ids.category}-error`} message={fieldErrors.categoryId} />
             </div>
 
             <div className="space-y-2">
@@ -404,7 +424,12 @@ export function PostForm({ post, version, nextOrder, imageShared = false }: Prop
                 </Button>
               ) : null}
             </div>
-            <Button type="submit" size="lg" className="h-11 px-5 text-[0.9375rem]" disabled={pending || preparing}>
+            <Button
+              type="submit"
+              size="lg"
+              className="h-11 px-5 text-[0.9375rem]"
+              disabled={pending || preparing || !selectedCategory}
+            >
               {pending ? <Loader2 className="animate-spin" aria-hidden="true" /> : null}
               {pending ? "Salvando…" : isEdit ? "Salvar alterações" : "Criar publicação"}
             </Button>
@@ -424,7 +449,14 @@ export function PostForm({ post, version, nextOrder, imageShared = false }: Prop
                 preview
                 imageSrc={previewImage}
                 headingLevel="h3"
-                post={{ category, title, excerpt, image: previewImage, externalUrl: externalUrl || null, featured }}
+                post={{
+                  category: selectedCategory ?? { name: "Categoria", icon: "general" },
+                  title,
+                  excerpt,
+                  image: previewImage,
+                  externalUrl: externalUrl || null,
+                  featured,
+                }}
               />
             </div>
           </div>

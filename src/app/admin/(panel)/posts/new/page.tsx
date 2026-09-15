@@ -13,6 +13,7 @@ export default async function NewPostPage() {
       <PageHeader title="Nova publicação" description="Preencha os campos e confira o card na pré-visualização." />
       {content.ok ? (
         <PostForm
+          categories={content.snapshot.categories}
           version={content.snapshot.version}
           nextOrder={content.snapshot.posts.reduce((max, post) => Math.max(max, post.order), 0) + 1}
         />

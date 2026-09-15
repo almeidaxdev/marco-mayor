@@ -2,14 +2,9 @@ import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { PostsFileSchema, POST_IMAGE_PATTERN } from "./schema";
-import {
-  ContentConflictError,
-  serializePosts,
-  type CommitInput,
-  type ContentSnapshot,
-  type PostRepository,
-} from "./repository";
+import { parseContentFile, serializeContent } from "./content-file";
+import { POST_IMAGE_PATTERN } from "./schema";
+import { ContentConflictError, type CommitInput, type ContentSnapshot, type PostRepository } from "./repository";
 
 // Literal segments keep file tracing scoped to these folders.
 const postsFile = path.join(process.cwd(), "content", "posts.json");
@@ -38,8 +33,8 @@ export class LocalPostRepository implements PostRepository {
 
   async read(): Promise<ContentSnapshot> {
     const raw = await readFile(postsFile, "utf8");
-    const file = PostsFileSchema.parse(JSON.parse(raw));
-    return { posts: file.posts, version: hash(raw) };
+    const file = parseContentFile(raw);
+    return { categories: file.categories, posts: file.posts, version: hash(raw) };
   }
 
   commit(input: CommitInput): Promise<{ version: string }> {
@@ -48,13 +43,13 @@ export class LocalPostRepository implements PostRepository {
     return run;
   }
 
-  private async write({ posts, expectedVersion, uploads = [], deletions = [] }: CommitInput) {
+  private async write({ categories, posts, expectedVersion, uploads = [], deletions = [] }: CommitInput) {
     const current = await readFile(postsFile, "utf8");
     if (hash(current) !== expectedVersion) {
       throw new ContentConflictError();
     }
 
-    const next = serializePosts(PostsFileSchema.parse({ posts }).posts);
+    const next = serializeContent({ categories, posts });
 
     await mkdir(imagesDir, { recursive: true });
     for (const upload of uploads) {

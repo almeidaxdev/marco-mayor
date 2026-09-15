@@ -30,6 +30,7 @@ export default async function EditPostPage({ params }: PageProps<"/admin/posts/[
       <PostForm
         key={`${post.id}-${content.snapshot.version}`}
         post={post}
+        categories={content.snapshot.categories}
         version={content.snapshot.version}
         nextOrder={post.order}
         imageShared={imageShared}

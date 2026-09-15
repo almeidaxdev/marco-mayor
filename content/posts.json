@@ -1,9 +1,32 @@
 {
+  "categories": [
+    {
+      "id": "1110b540-d087-4078-9d64-4576e8c42485",
+      "name": "Saúde",
+      "slug": "saude",
+      "icon": "health",
+      "order": 1
+    },
+    {
+      "id": "ce8405e5-6e59-438c-aa7f-cf80650983df",
+      "name": "Inclusão",
+      "slug": "inclusao",
+      "icon": "inclusion",
+      "order": 2
+    },
+    {
+      "id": "51b0fded-f355-4ce7-8b5c-da3f29d7a13c",
+      "name": "Bairros",
+      "slug": "bairros",
+      "icon": "neighborhoods",
+      "order": 3
+    }
+  ],
   "posts": [
     {
       "id": "9d8ab06d-68e2-4883-ba7b-2259c072fbf9",
       "slug": "farmacia-da-solidariedade",
-      "category": "Saúde",
+      "categoryId": "1110b540-d087-4078-9d64-4576e8c42485",
       "title": "Farmácia da Solidariedade",
       "excerpt": "Conheça o tema apresentado por Marco Mayor em suas redes sociais.",
       "image": null,
@@ -18,7 +41,7 @@
     {
       "id": "011cf50a-04a4-49ae-992e-e055198404f1",
       "slug": "direitos-das-pessoas-com-autismo",
-      "category": "Inclusão",
+      "categoryId": "ce8405e5-6e59-438c-aa7f-cf80650983df",
       "title": "Direitos das pessoas com autismo",
       "excerpt": "Publicação sobre um projeto de lei relacionado ao atendimento de pessoas com TEA.",
       "image": null,
@@ -33,7 +56,7 @@
     {
       "id": "c405fc53-72ef-45ec-bf9d-01639b12ea7c",
       "slug": "demandas-do-terra-nova",
-      "category": "Bairros",
+      "categoryId": "51b0fded-f355-4ce7-8b5c-da3f29d7a13c",
       "title": "Demandas do Terra Nova",
       "excerpt": "Acompanhe as publicações sobre zeladoria e melhorias no bairro.",
       "image": null,
@@ -48,7 +71,7 @@
     {
       "id": "f032348c-7bb8-4ba6-bd87-2a5e92873ca0",
       "slug": "jardim-regina-e-cidade-nova",
-      "category": "Saúde",
+      "categoryId": "1110b540-d087-4078-9d64-4576e8c42485",
       "title": "Jardim Regina e Cidade Nova",
       "excerpt": "Publicação sobre reformas e melhorias nas unidades de saúde dos dois bairros.",
       "image": null,
@@ -63,7 +86,7 @@
     {
       "id": "3d4978ff-a9ac-4cc2-a2a3-5548ba4ef44a",
       "slug": "praca-do-autista",
-      "category": "Inclusão",
+      "categoryId": "ce8405e5-6e59-438c-aa7f-cf80650983df",
       "title": "Praça do Autista",
       "excerpt": "Um dos assuntos compartilhados sobre inclusão e convivência no Parque da Cidade.",
       "image": null,
@@ -78,7 +101,7 @@
     {
       "id": "18d2f5a4-341b-4afe-bcbc-4b69053c3eb2",
       "slug": "transporte-em-pindamonhangaba",
-      "category": "Bairros",
+      "categoryId": "51b0fded-f355-4ce7-8b5c-da3f29d7a13c",
       "title": "Transporte em Pindamonhangaba",
       "excerpt": "Publicação sobre ônibus com ar-condicionado para o transporte na cidade.",
       "image": null,

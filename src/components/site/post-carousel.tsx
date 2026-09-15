@@ -2,20 +2,43 @@
 
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { CATEGORIES, CATEGORY_SLUGS, type Category } from "@/lib/content/schema";
 
-type Item = { id: string; category: Category; card: ReactNode };
+type Item = { id: string; categoryId: string; card: ReactNode };
 
-type Filter = "todos" | Category;
+export type CarouselCategory = { id: string; name: string; slug: string };
 
-export function PostCarousel({ items, heading }: { items: Item[]; heading: ReactNode }) {
+type Filter = "todos" | string;
+
+const ALL_LABEL = "Todos os assuntos";
+
+/**
+ * Whether the filter pills fit beside the heading at xl, estimated from label lengths so the server and
+ * the client render the same layout (no measuring, no layout shift). Calibrated on Schibsted Grotesk
+ * 15px medium with the tighter 1280–1439px pills: ≈8px per character + 46px of padding, gap and count,
+ * 6px between pills. The narrowest xl filter column (1280px viewport) is ≈519px.
+ * If the estimate is ever optimistic, the column's minimum track and flex-wrap still prevent overlap.
+ */
+function fitsBesideHeading(labels: string[]) {
+  const estimate = labels.reduce((sum, label) => sum + label.length * 8 + 46, 0) + 6 * (labels.length - 1);
+  return estimate <= 510;
+}
+
+export function PostCarousel({
+  items,
+  categories,
+  heading,
+}: {
+  items: Item[];
+  categories: CarouselCategory[];
+  heading: ReactNode;
+}) {
   const [filter, setFilter] = useState<Filter>("todos");
   const [edges, setEdges] = useState({ start: true, end: true });
   const trackRef = useRef<HTMLUListElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
   const trackId = useId();
 
-  const visible = filter === "todos" ? items : items.filter((item) => item.category === filter);
+  const visible = filter === "todos" ? items : items.filter((item) => item.categoryId === filter);
 
   const measure = useCallback(() => {
     const track = trackRef.current;
@@ -70,33 +93,44 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
     track.scrollBy({ left: distance * direction, behavior: reduce ? "instant" : "smooth" });
   }
 
-  const counts = Object.fromEntries(
-    CATEGORIES.map((category) => [category, items.filter((item) => item.category === category).length]),
-  ) as Record<Category, number>;
-
-  const filters: Array<{ value: Filter; label: string; count: number }> = [
-    { value: "todos", label: "Todos os assuntos", count: items.length },
-    ...CATEGORIES.map((category) => ({ value: category as Filter, label: category, count: counts[category] })),
+  const filters: Array<{ value: Filter; label: string; slug: string; count: number }> = [
+    { value: "todos", label: ALL_LABEL, slug: "todos", count: items.length },
+    ...categories.map((category) => ({
+      value: category.id,
+      label: category.name,
+      slug: category.slug,
+      count: items.filter((item) => item.categoryId === category.id).length,
+    })),
   ];
 
+  const besideHeading = fitsBesideHeading(filters.map((option) => option.label));
+  const activeName = categories.find((category) => category.id === filter)?.name;
+
   const statusText =
-    filter === "todos"
+    filter === "todos" || !activeName
       ? `Mostrando todas as ${visible.length} publicações.`
-      : `Mostrando ${visible.length} ${visible.length === 1 ? "publicação" : "publicações"} de ${filter}.`;
+      : `Mostrando ${visible.length} ${visible.length === 1 ? "publicação" : "publicações"} de ${activeName}.`;
 
   const arrowClass =
     "grid size-11 place-items-center rounded-full border border-navy/25 text-navy transition-[background-color,border-color,color,opacity] duration-200 hover:border-navy hover:bg-navy hover:text-paper disabled:pointer-events-none disabled:opacity-30 sm:size-12";
 
   return (
     <div>
-      {/* From xl the filters column sizes to its content (one line) and the heading takes the rest;
-          between 1280 and 1439px the pills tighten slightly so the row still fits beside the heading. */}
-      <div className="shell grid gap-8 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end xl:gap-10">
+      {/* Filters layout:
+          - Mobile: one horizontally scrollable row. Tablet: pills wrap below the heading.
+          - xl, when the pills fit (see fitsBesideHeading): the filters column sizes to its content beside the
+            heading, which keeps a 38rem minimum so it never gets squeezed; 1280–1439px pills tighten slightly.
+          - xl with many categories: same as tablet — a full-width row below the heading that wraps. */}
+      <div
+        className={`shell grid gap-8 ${besideHeading ? "xl:grid-cols-[minmax(min(38rem,100%),1fr)_minmax(0,auto)] xl:items-end xl:gap-10" : ""}`}
+      >
         <div>{heading}</div>
         <div
           role="group"
           aria-label="Filtrar publicações por assunto"
-          className="no-scrollbar -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:flex-wrap sm:px-0 xl:justify-end xl:pb-1.5 xl:max-[90rem]:gap-1.5"
+          className={`no-scrollbar -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:flex-wrap sm:px-0 ${
+            besideHeading ? "xl:justify-end xl:pb-1.5 xl:max-[90rem]:gap-1.5" : ""
+          }`}
         >
           {filters.map((option) => {
             const pressed = filter === option.value;
@@ -108,8 +142,10 @@ export function PostCarousel({ items, heading }: { items: Item[]; heading: React
                 aria-controls={trackId}
                 disabled={option.count === 0}
                 onClick={() => selectFilter(option.value)}
-                data-slug={option.value === "todos" ? "todos" : CATEGORY_SLUGS[option.value]}
-                className="inline-flex h-11 shrink-0 items-center gap-2.5 rounded-full border border-line bg-paper px-4 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-[background-color,border-color,color] duration-200 hover:border-navy/50 xl:max-[90rem]:px-3.5 disabled:cursor-not-allowed disabled:opacity-45 aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-paper"
+                data-slug={option.slug}
+                className={`inline-flex h-11 shrink-0 items-center gap-2.5 rounded-full border border-line bg-paper px-4 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-[background-color,border-color,color] duration-200 hover:border-navy/50 ${
+                  besideHeading ? "xl:max-[90rem]:px-3.5" : ""
+                } disabled:cursor-not-allowed disabled:opacity-45 aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-paper`}
               >
                 {option.label}
                 <span

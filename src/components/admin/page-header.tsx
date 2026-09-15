@@ -15,7 +15,7 @@ export function PageHeader({ title, description, actions }: { title: string; des
 export function ContentError({ message }: { message: string }) {
   return (
     <div role="alert" className="rounded-lg border border-destructive/25 bg-destructive/5 p-5 text-sm">
-      <p className="font-semibold text-destructive">Não foi possível acessar as publicações</p>
+      <p className="font-semibold text-destructive">Não foi possível acessar o conteúdo</p>
       <p className="mt-1 text-foreground/80">{message}</p>
     </div>
   );

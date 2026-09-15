@@ -1,10 +1,12 @@
 import "server-only";
-import type { Post } from "./schema";
+import type { Category, Post } from "./schema";
 
+/** Single content file: categories and posts live together so references are validated atomically. */
 export const POSTS_FILE_PATH = "content/posts.json";
 export const POST_IMAGES_DIR = "public/posts";
 
 export type ContentSnapshot = {
+  categories: Category[];
   posts: Post[];
   /** Opaque token identifying the posts.json revision the caller saw. */
   version: string;
@@ -17,6 +19,7 @@ export type ImageUpload = {
 };
 
 export type CommitInput = {
+  categories: Category[];
   posts: Post[];
   expectedVersion: string;
   message: string;
@@ -33,7 +36,7 @@ export interface PostRepository {
 
 export class ContentConflictError extends Error {
   constructor() {
-    super("As publicações foram alteradas por outra sessão. Recarregue a página para ver a versão atual.");
+    super("O conteúdo foi alterado por outra sessão. Recarregue a página para ver a versão atual.");
     this.name = "ContentConflictError";
   }
 }
@@ -43,8 +46,4 @@ export class ContentConfigError extends Error {
     super(message);
     this.name = "ContentConfigError";
   }
-}
-
-export function serializePosts(posts: Post[]): string {
-  return JSON.stringify({ posts }, null, 2) + "\n";
 }
