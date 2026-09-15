@@ -447,4 +447,12 @@ python docs\manual\tools\add_actualtext.py $tmp $pdf
 
 O segundo comando (requer `pip install pymupdf`) não altera a aparência do PDF: ele apenas registra o texto exato dos títulos, para que a busca (Ctrl+F), o copiar/colar e os leitores de tela não juntem as palavras. Sem ele, os títulos grandes podem ser lidos como “Nestemanual”.
 
+Os marcadores amarelos numerados das capturas não são desenhados pelo HTML: eles já fazem parte das imagens em `img/annotated/`, geradas a partir das capturas originais de `img/` (desenhados por cima da imagem, eles apareciam com blocos cinza no visualizador de PDF do iPhone). Ao trocar uma dessas capturas ou mover um marcador, ajuste `tools/markers.json` e gere as imagens de novo, antes do PDF:
+
+```powershell
+python docs\manual\tools\annotate_screenshots.py
+```
+
+Esse comando requer `pip install pillow fonttools brotli`.
+
 A fonte Schibsted Grotesk (licença SIL Open Font License, texto em `fonts/OFL.txt`) está incluída em `fonts/`, então o PDF não depende de internet. Depois de gerar, confira todas as páginas: nenhuma captura cortada, nenhum título sozinho no fim da página.

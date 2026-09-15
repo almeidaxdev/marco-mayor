@@ -1,0 +1,570 @@
+{
+  "_doc": "Marcadores numerados incorporados nas capturas (ver tools/annotate_screenshots.py). center e label_origin em pixels da captura original; label_origin = início da linha de base do número. html_percent = posição left/top que o .pin tinha no HTML; px_per_mm = escala da captura no PDF.",
+  "style": {
+    "disc_mm": 5.6,
+    "ring_mm": 0.6,
+    "font_pt": 7.5,
+    "font_weight": 800,
+    "disc": "#f3ce4b",
+    "ring": "#ffffff",
+    "label": "#0d2437",
+    "background": "#ffffff"
+  },
+  "figures": [
+    {
+      "image": "01-login.png",
+      "page": 4,
+      "px_per_mm": [
+        9.1073,
+        9.1073
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            56.0,
+            49.8
+          ],
+          "center": [
+            895.181,
+            497.59
+          ],
+          "label_origin": [
+            890.776,
+            506.023
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            56.0,
+            59.3
+          ],
+          "center": [
+            895.181,
+            591.566
+          ],
+          "label_origin": [
+            888.63,
+            599.999
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            56.0,
+            66.5
+          ],
+          "center": [
+            895.181,
+            663.855
+          ],
+          "label_origin": [
+            888.555,
+            672.288
+          ]
+        }
+      ]
+    },
+    {
+      "image": "02-visao-geral.png",
+      "page": 5,
+      "px_per_mm": [
+        9.1073,
+        9.1073
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            15.0,
+            15.8
+          ],
+          "center": [
+            239.759,
+            157.831
+          ],
+          "label_origin": [
+            234.789,
+            166.264
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            15.0,
+            20.7
+          ],
+          "center": [
+            239.759,
+            206.024
+          ],
+          "label_origin": [
+            232.643,
+            214.457
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            15.0,
+            25.6
+          ],
+          "center": [
+            239.759,
+            256.627
+          ],
+          "label_origin": [
+            232.568,
+            265.06
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            82.9,
+            15.0
+          ],
+          "center": [
+            1326.506,
+            150.602
+          ],
+          "label_origin": [
+            1318.976,
+            159.035
+          ]
+        },
+        {
+          "n": 4,
+          "html_percent": [
+            15.0,
+            30.5
+          ],
+          "center": [
+            239.759,
+            304.819
+          ],
+          "label_origin": [
+            232.191,
+            313.252
+          ]
+        },
+        {
+          "n": 5,
+          "html_percent": [
+            15.0,
+            96.0
+          ],
+          "center": [
+            239.759,
+            960.241
+          ],
+          "label_origin": [
+            232.379,
+            968.674
+          ]
+        },
+        {
+          "n": 6,
+          "html_percent": [
+            95.0,
+            23.4
+          ],
+          "center": [
+            1519.277,
+            233.735
+          ],
+          "label_origin": [
+            1512.462,
+            240.963
+          ]
+        },
+        {
+          "n": 7,
+          "html_percent": [
+            30.0,
+            38.15
+          ],
+          "center": [
+            480.723,
+            381.928
+          ],
+          "label_origin": [
+            472.929,
+            390.361
+          ]
+        },
+        {
+          "n": 8,
+          "html_percent": [
+            33.0,
+            64.85
+          ],
+          "center": [
+            528.916,
+            648.193
+          ],
+          "label_origin": [
+            520.407,
+            655.421
+          ]
+        }
+      ]
+    },
+    {
+      "image": "05-nova-publicacao.png",
+      "page": 7,
+      "px_per_mm": [
+        14.4326,
+        14.4022
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            2.6,
+            15.5
+          ],
+          "center": [
+            40.095,
+            268.645
+          ],
+          "label_origin": [
+            33.413,
+            281.981
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            2.6,
+            22.0
+          ],
+          "center": [
+            40.095,
+            382.963
+          ],
+          "label_origin": [
+            30.011,
+            396.299
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            2.6,
+            30.8
+          ],
+          "center": [
+            40.095,
+            533.48
+          ],
+          "label_origin": [
+            29.893,
+            544.911
+          ]
+        },
+        {
+          "n": 4,
+          "html_percent": [
+            2.6,
+            41.2
+          ],
+          "center": [
+            40.095,
+            714.482
+          ],
+          "label_origin": [
+            29.295,
+            727.818
+          ]
+        },
+        {
+          "n": 5,
+          "html_percent": [
+            2.6,
+            58.9
+          ],
+          "center": [
+            40.095,
+            1019.328
+          ],
+          "label_origin": [
+            29.594,
+            1032.664
+          ]
+        },
+        {
+          "n": 6,
+          "html_percent": [
+            2.6,
+            72.7
+          ],
+          "center": [
+            40.095,
+            1257.489
+          ],
+          "label_origin": [
+            29.714,
+            1268.92
+          ]
+        },
+        {
+          "n": 7,
+          "html_percent": [
+            2.6,
+            80.6
+          ],
+          "center": [
+            40.095,
+            1392.764
+          ],
+          "label_origin": [
+            30.489,
+            1406.1
+          ]
+        },
+        {
+          "n": 8,
+          "html_percent": [
+            42.2,
+            92.1
+          ],
+          "center": [
+            675.895,
+            1592.819
+          ],
+          "label_origin": [
+            663.962,
+            1604.25
+          ]
+        },
+        {
+          "n": 9,
+          "html_percent": [
+            65.9,
+            4.6
+          ],
+          "center": [
+            1055.847,
+            81.927
+          ],
+          "label_origin": [
+            1043.615,
+            95.263
+          ]
+        }
+      ]
+    },
+    {
+      "image": "11-categorias.png",
+      "page": 14,
+      "px_per_mm": [
+        9.1073,
+        9.0866
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            80.4,
+            24.2
+          ],
+          "center": [
+            1285.542,
+            140.644
+          ],
+          "label_origin": [
+            1281.175,
+            149.058
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            79.6,
+            94.5
+          ],
+          "center": [
+            1273.494,
+            544.544
+          ],
+          "label_origin": [
+            1266.227,
+            552.958
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            87.7,
+            94.5
+          ],
+          "center": [
+            1403.614,
+            544.544
+          ],
+          "label_origin": [
+            1395.745,
+            552.958
+          ]
+        },
+        {
+          "n": 4,
+          "html_percent": [
+            92.9,
+            94.5
+          ],
+          "center": [
+            1485.542,
+            544.544
+          ],
+          "label_origin": [
+            1478.577,
+            552.958
+          ]
+        }
+      ]
+    },
+    {
+      "image": "12-nova-categoria.png",
+      "page": 15,
+      "px_per_mm": [
+        14.4326,
+        14.4241
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            2.6,
+            20.1
+          ],
+          "center": [
+            40.095,
+            272.871
+          ],
+          "label_origin": [
+            33.413,
+            286.228
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            2.6,
+            28.3
+          ],
+          "center": [
+            40.095,
+            383.547
+          ],
+          "label_origin": [
+            30.011,
+            396.904
+          ]
+        },
+        {
+          "n": 3,
+          "html_percent": [
+            2.6,
+            38.8
+          ],
+          "center": [
+            40.095,
+            524.753
+          ],
+          "label_origin": [
+            29.893,
+            538.11
+          ]
+        },
+        {
+          "n": 4,
+          "html_percent": [
+            2.6,
+            51.6
+          ],
+          "center": [
+            40.095,
+            696.49
+          ],
+          "label_origin": [
+            29.295,
+            709.847
+          ]
+        },
+        {
+          "n": 5,
+          "html_percent": [
+            65.9,
+            6.5
+          ],
+          "center": [
+            1055.847,
+            87.777
+          ],
+          "label_origin": [
+            1043.556,
+            99.225
+          ]
+        },
+        {
+          "n": 6,
+          "html_percent": [
+            43.4,
+            94.0
+          ],
+          "center": [
+            694.988,
+            1268.948
+          ],
+          "label_origin": [
+            683.234,
+            1282.305
+          ]
+        }
+      ]
+    },
+    {
+      "image": "17-site-filtros.png",
+      "page": 18,
+      "px_per_mm": [
+        9.1073,
+        9.1073
+      ],
+      "markers": [
+        {
+          "n": 1,
+          "html_percent": [
+            57.3,
+            24.5
+          ],
+          "center": [
+            916.867,
+            245.783
+          ],
+          "label_origin": [
+            911.596,
+            253.011
+          ]
+        },
+        {
+          "n": 2,
+          "html_percent": [
+            3.8,
+            33.4
+          ],
+          "center": [
+            61.446,
+            334.94
+          ],
+          "label_origin": [
+            53.426,
+            342.168
+          ]
+        }
+      ]
+    }
+  ]
+}

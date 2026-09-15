@@ -153,16 +153,8 @@ figure { margin: 3mm 0 4mm; break-inside: avoid; }
 figcaption { margin-top: 1.8mm; font-size: 8pt; color: var(--slate); }
 figcaption b { color: var(--ink); }
 
-.pin {
-  position: absolute;
-  width: 5.6mm; height: 5.6mm;
-  margin: -2.8mm 0 0 -2.8mm;
-  border-radius: 50%;
-  background: var(--sun);
-  color: var(--ink);
-  font-size: 7.5pt; font-weight: 800; line-height: 5.6mm; text-align: center;
-  box-shadow: 0 0 0 0.6mm #fff, 0 0.6mm 1.6mm rgb(13 36 55 / 0.35);
-}
+/* Numbered markers over screenshots are baked into the images (img/annotated/, tools/annotate_screenshots.py).
+   Drawn as HTML over a screenshot, the iOS/Safari PDF viewer showed grey blocks behind them. */
 .key { display: inline-block; width: 4.8mm; height: 4.8mm; margin-right: 2mm; border-radius: 50%; background: var(--sun); color: var(--ink); font-size: 7pt; font-weight: 800; line-height: 4.8mm; text-align: center; vertical-align: 0.2mm; }
 
 .legend { list-style: none; margin: 0; padding: 0; }
