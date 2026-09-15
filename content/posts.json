@@ -89,6 +89,21 @@
       "publishedAt": null,
       "createdAt": "2026-09-14T22:38:55.112Z",
       "updatedAt": "2026-09-14T22:38:55.112Z"
+    },
+    {
+      "id": "966b102e-f5f2-4fe1-91e1-e906fcaefc31",
+      "slug": "teste-producao-com-imagem",
+      "category": "Saúde",
+      "title": "Teste Produção com Imagem",
+      "excerpt": "Publicação temporária para validar o fluxo completo do painel em produção.",
+      "image": "/posts/teste-producao-com-imagem-57b203.webp",
+      "externalUrl": null,
+      "published": false,
+      "featured": false,
+      "order": 7,
+      "publishedAt": null,
+      "createdAt": "2026-09-15T11:27:50.722Z",
+      "updatedAt": "2026-09-15T11:27:50.722Z"
     }
   ]
 }
