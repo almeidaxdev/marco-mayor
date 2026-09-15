@@ -228,32 +228,24 @@
   }
 }
 
-/* Hero load sequence — the single orchestrated motion moment. */
+/* Hero load sequence. The photograph, scrims and structural lines are static so the
+   first paint is already the final composition; only the text settles in, briefly. */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes photo-in {
+@keyframes fade {
   from {
-    transform: scale(1.035);
+    opacity: 0;
   }
   to {
     opacity: 1;
-    transform: none;
-  }
-}
-@keyframes rule-in {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
   }
 }
 @keyframes card-in {
@@ -268,16 +260,12 @@
 }
 
 .anim-rise {
-  animation: rise 760ms var(--ease-out-quart) both;
-  animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+  animation: rise 520ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 40ms);
 }
-.anim-photo {
-  animation: photo-in 1400ms var(--ease-out-quart) both;
-}
-.anim-rule {
-  transform-origin: left;
-  animation: rule-in 900ms var(--ease-out-quart) both;
-  animation-delay: 560ms;
+.anim-fade {
+  animation: fade 520ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 40ms);
 }
 .anim-card {
   animation: card-in 420ms var(--ease-out-quart) both;

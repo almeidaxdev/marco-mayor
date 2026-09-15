@@ -9,7 +9,8 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="on-dark relative isolate overflow-hidden bg-ink text-paper lg:min-h-[max(40rem,100svh)]"
     >
-      {/* Photograph: stacked on small screens, anchored right and bleeding off-edge on large screens. */}
+      {/* Photograph: stacked on small screens, anchored right and bleeding off-edge on large screens.
+          Deliberately static — any transform would push the photo past its scrims and open a seam on first paint. */}
       <div className="relative h-[min(62svh,33rem)] w-full sm:h-[min(66svh,44rem)] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[58%] xl:w-[56%]">
         <Image
           src={SITE.photo.src}
@@ -19,7 +20,7 @@ export function Hero() {
           fetchPriority="high"
           quality={85}
           sizes="(min-width: 1280px) 56vw, (min-width: 1024px) 58vw, 100vw"
-          className="anim-photo object-cover object-[50%_20%] sm:object-[50%_26%] lg:object-[46%_center]"
+          className="object-cover object-[50%_20%] sm:object-[50%_26%] lg:object-[46%_center]"
         />
         {/* Cool the white wall slightly so the photo belongs to the blue field. */}
         <div aria-hidden="true" className="absolute inset-0 bg-[#bcd0df] opacity-25 mix-blend-multiply" />
@@ -47,7 +48,7 @@ export function Hero() {
       <div className="shell relative -mt-32 pb-8 sm:-mt-52 sm:pb-10 lg:mt-0 lg:flex lg:min-h-[max(40rem,100svh)] lg:flex-col lg:pt-[calc(var(--header-h)+2rem)] lg:pb-0 short:pt-[calc(var(--header-h)+0.75rem)]">
         <div className="lg:flex lg:flex-1 lg:flex-col lg:justify-end lg:pb-[clamp(2.5rem,8svh,6rem)] short:justify-center short:pb-6">
           <p className="anim-rise flex items-start gap-3.5" style={{ "--i": 0 } as React.CSSProperties}>
-            <span aria-hidden="true" className="anim-rule mt-[0.7rem] block h-0.5 w-10 shrink-0 bg-sun" />
+            <span aria-hidden="true" className="mt-[0.7rem] block h-0.5 w-10 shrink-0 bg-sun" />
             <span className="leading-tight">
               <span className="block text-[1.1875rem] font-bold tracking-[-0.015em]">{SITE.name}</span>
               <span className="block text-[0.9375rem] font-medium text-paper/75">{SITE.role}</span>
@@ -94,7 +95,7 @@ export function Hero() {
 
         {/* Institutional line: spans the full width so text column and photograph read as one composition. */}
         <div
-          className="anim-rise mt-10 flex items-end justify-between gap-6 border-t border-white/15 pt-4 sm:mt-12 lg:mt-0 lg:mb-7 lg:pt-5 short:mb-5 short:pt-4"
+          className="anim-fade mt-10 flex items-end justify-between gap-6 border-t border-white/15 pt-4 sm:mt-12 lg:mt-0 lg:mb-7 lg:pt-5 short:mb-5 short:pt-4"
           style={{ "--i": 4 } as React.CSSProperties}
         >
           <p className="max-w-[17ch] text-[0.9375rem] leading-snug font-medium text-paper/85 sm:max-w-none">

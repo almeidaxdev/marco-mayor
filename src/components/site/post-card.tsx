@@ -31,7 +31,7 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
   return (
     <article
       className={`group/card relative flex h-full flex-col overflow-hidden border transition-[transform,border-color,box-shadow] duration-300 ease-[var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift focus-within:-translate-y-1 focus-within:shadow-lift motion-reduce:hover:translate-y-0 motion-reduce:focus-within:translate-y-0 ${surface} ${
-        hasImage ? "" : "min-h-[23.5rem] sm:min-h-[27rem]"
+        hasImage ? "" : "min-h-[20rem] sm:min-h-[21.5rem]"
       }`}
     >
       {/* Accent: a short yellow mark on the top edge that runs the full width on interaction. */}
@@ -77,7 +77,7 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
             <CategoryGlyph
               category={post.category}
               strokeWidth={1.1}
-              className={`-mr-1 size-[7.5rem] shrink-0 transition-[color,transform] duration-500 ease-[var(--ease-out-quart)] group-hover/card:rotate-[3deg] sm:size-[9rem] ${
+              className={`size-16 shrink-0 transition-[color,transform] duration-500 ease-[var(--ease-out-quart)] group-hover/card:rotate-[3deg] sm:size-[4.5rem] ${
                 dark
                   ? "text-sun/50 group-hover/card:text-sun"
                   : "text-navy/25 group-hover/card:text-sun-deep group-focus-within/card:text-sun-deep"
@@ -86,7 +86,7 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
           )}
         </div>
 
-        <div className={hasImage ? "mt-4" : "mt-auto pt-8"}>
+        <div className={hasImage ? "mt-4" : "mt-5 pb-8 sm:mt-6"}>
           <Heading className="text-h3 font-bold">
             {preview ? (
               post.title || "Título da publicação"
@@ -111,7 +111,7 @@ export function PostCard({ post, headingLevel = "h3", imageSrc, preview = false,
 
         <p
           aria-hidden="true"
-          className={`mt-6 flex items-center justify-between border-t pt-4 text-[0.875rem] font-medium transition-colors duration-300 ${
+          className={`${hasImage ? "mt-6" : "mt-auto"} flex items-center justify-between border-t pt-4 text-[0.875rem] font-medium transition-colors duration-300 ${
             dark ? "border-white/15 text-paper/85" : "border-line text-slate-2 group-hover/card:text-ink"
           }`}
         >
