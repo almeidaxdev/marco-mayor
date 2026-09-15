@@ -34,10 +34,12 @@ export function Hero() {
           aria-hidden="true"
           className="absolute inset-x-0 top-0 -bottom-0.5 bg-[linear-gradient(to_top,var(--color-ink)_0%,var(--color-ink)_1%,rgb(13_36_55/0.9)_20%,rgb(13_36_55/0.3)_46%,transparent_64%)] lg:hidden"
         />
-        {/* Large screens: directional fade from the text column into the photo. */}
+        {/* Large screens: directional fade from the text column into the photo. It starts 3px before the
+            photo's left edge: that edge lands on a fractional device pixel at 125%/150% scaling, and the photo's
+            anti-aliased edge would otherwise bleed through the fade's own anti-aliased edge as a light 1px line. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-ink)_0%,rgb(13_36_55/0.9)_22%,rgb(13_36_55/0.4)_42%,transparent_60%)] lg:block xl:bg-[linear-gradient(to_right,var(--color-ink)_0%,rgb(13_36_55/0.88)_14%,rgb(13_36_55/0.35)_34%,transparent_52%)]"
+          className="absolute inset-0 hidden lg:-left-[3px] bg-[linear-gradient(to_right,var(--color-ink)_0%,rgb(13_36_55/0.9)_22%,rgb(13_36_55/0.4)_42%,transparent_60%)] lg:block xl:bg-[linear-gradient(to_right,var(--color-ink)_0%,rgb(13_36_55/0.88)_14%,rgb(13_36_55/0.35)_34%,transparent_52%)]"
         />
         <div
           aria-hidden="true"
