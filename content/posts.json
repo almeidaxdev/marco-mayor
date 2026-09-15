@@ -119,6 +119,21 @@
       "publishedAt": null,
       "createdAt": "2026-09-14T22:38:55.112Z",
       "updatedAt": "2026-09-14T22:38:55.112Z"
+    },
+    {
+      "id": "c342feca-1382-433f-b0a6-e534af212c8c",
+      "slug": "teste-de-post-e-categoria",
+      "categoryId": "9f794df7-6efb-4d72-a4bb-dbb2cdcaab4a",
+      "title": "Teste de Post e Categoria",
+      "excerpt": "Realização de teste de Post e Categoria",
+      "image": "/posts/teste-de-post-e-categoria-6abe6d.webp",
+      "externalUrl": "https://www.instagram.com/marcomayor10/",
+      "published": true,
+      "featured": false,
+      "order": 7,
+      "publishedAt": "2026-09-15T17:21:30.249Z",
+      "createdAt": "2026-09-15T17:21:30.249Z",
+      "updatedAt": "2026-09-15T17:21:30.249Z"
     }
   ]
 }
