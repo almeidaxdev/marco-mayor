@@ -74,7 +74,7 @@ src/
     admin/
       actions.ts                Server Actions (login, CRUD) — todas verificam sessão
       login/                    /admin/login
-      (panel)/                  /admin, /admin/posts(/new, /[id]), /admin/categories(/new, /[id])
+      (panel)/                  /admin, /admin/posts(/new, /[id]), /admin/categories(/new, /[id]), /admin/manual(/pdf)
   components/
     site/                       Hero, header, cards, carrossel, seções, footer
     admin/                      Sidebar, tabela, formulário, diálogos
@@ -292,6 +292,7 @@ Em produção, a imagem entra no mesmo commit do `posts.json` e aparece no site 
 - Uploads verificados por conteúdo, re-encodados e salvos com nome gerado.
 - Controle de concorrência por SHA; conflitos nunca sobrescrevem dados.
 - Cabeçalhos: `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`; `/admin` com `noindex` e `no-store`.
+- Manual do Administrador: o PDF de `docs/manual/` não fica em `public/`; só é entregue por `/admin/manual/pdf` com sessão válida. Essa rota aceita ser exibida em iframe apenas pelo próprio site (`SAMEORIGIN`).
 
 ---
 

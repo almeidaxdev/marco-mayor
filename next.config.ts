@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "4mb",
     },
   },
+  // O PDF do manual fica fora de public/ e é lido pela rota protegida /admin/manual/pdf.
+  outputFileTracingIncludes: {
+    "/admin/manual/pdf": ["./docs/manual/Manual_Administrador_Marco_Mayor.pdf"],
+  },
   poweredByHeader: false,
   async headers() {
     return [
@@ -31,6 +35,14 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
           { key: "Cache-Control", value: "no-store" },
+        ],
+      },
+      {
+        // O PDF é exibido em um iframe da própria página /admin/manual; continua proibido em outros sites.
+        source: "/admin/manual/pdf",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
         ],
       },
     ];

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ExternalLink, FileText, LayoutDashboard, LogOut, Plus, Tags } from "lucide-react";
+import { BookOpen, ExternalLink, FileText, LayoutDashboard, LogOut, Plus, Tags } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 import { Monogram } from "@/components/site/brand";
 import {
@@ -28,6 +28,7 @@ const items = [
   },
   { href: "/admin/categories", label: "Categorias", icon: Tags, match: (p: string) => p.startsWith("/admin/categories") },
   { href: "/admin/posts/new", label: "Nova publicação", icon: Plus, match: (p: string) => p === "/admin/posts/new" },
+  { href: "/admin/manual", label: "Manual", icon: BookOpen, match: (p: string) => p.startsWith("/admin/manual") },
 ];
 
 export function AdminSidebar({ username, driver }: { username: string; driver: string }) {
