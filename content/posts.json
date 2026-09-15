@@ -20,13 +20,6 @@
       "slug": "bairros",
       "icon": "neighborhoods",
       "order": 3
-    },
-    {
-      "id": "f5086496-cbd2-4852-b0ef-6acdbefbc473",
-      "name": "Educação",
-      "slug": "educacao",
-      "icon": "education",
-      "order": 4
     }
   ],
   "posts": [
