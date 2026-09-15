@@ -89,6 +89,21 @@
       "publishedAt": null,
       "createdAt": "2026-09-14T22:38:55.112Z",
       "updatedAt": "2026-09-14T22:38:55.112Z"
+    },
+    {
+      "id": "7435fc35-75af-45f9-a9eb-99709518cfd2",
+      "slug": "teste-github",
+      "category": "Bairros",
+      "title": "Teste GitHub",
+      "excerpt": "Publicação temporária para validar o armazenamento via GitHub.",
+      "image": null,
+      "externalUrl": null,
+      "published": false,
+      "featured": false,
+      "order": 7,
+      "publishedAt": null,
+      "createdAt": "2026-09-15T01:43:29.083Z",
+      "updatedAt": "2026-09-15T01:43:29.083Z"
     }
   ]
 }
